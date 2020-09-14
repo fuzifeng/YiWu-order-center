@@ -1,6 +1,8 @@
-package com.yiwu.order_center_client.order.domaim;
+package com.yiwu.order_center_client.order.domain;
 
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * @Author: fuzf
@@ -10,4 +12,6 @@ import lombok.Data;
 public class Order {
     private Long id;
     private String orderNo;
+    private Date createTime;
+    private Date updateTime;
 }

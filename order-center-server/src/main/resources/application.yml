@@ -5,10 +5,10 @@ spring:
   application:
     name: order-center
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.9.225:3307/saas?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
-    username: root
-    password: Wdcloud998
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.15.110:3306/order-center?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+    username: fuzifeng
+    password: 123456
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       minimum-idle: 5
@@ -29,3 +29,11 @@ spring:
     #    基于feign的接口调用，会生成很多{serverName}.FeignClientSpecification类的bean，
     main:
       allow-bean-definition-overriding: true
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+logging:
+  config: classpath:log4j2-spring.xml
+  level:
+    cn.jay.repository: debug
