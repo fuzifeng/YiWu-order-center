@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.yiwu.order_center_client.common.Resp;
 import com.yiwu.order_center_client.order.domain.Order;
 import com.yiwu.order_center_server.common.rabbitmq.producer.HelloSender;
+import com.yiwu.order_center_server.common.rabbitmq.producer.TopicSender;
 import com.yiwu.order_center_server.exception.BusinessException;
 import com.yiwu.order_center_server.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     HelloSender helloSender;
+    @Autowired
+    TopicSender topicSender;
 
 
     @PostMapping("/createOrder")
@@ -33,7 +36,10 @@ public class OrderController {
         order.setUpdateTime(now);
         Long orderId = orderService.addOrder(order);
         String orderStr = new Gson().toJson(order);
-        helloSender.send(orderStr);
+//        helloSender.send(orderStr);
+        topicSender.send1(orderStr);
+        topicSender.send2(orderStr);
+
         return Resp.success(orderId);
     }
 
