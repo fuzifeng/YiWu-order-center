@@ -4,20 +4,29 @@
     <resultMap id="BaseResultMap" type="com.yiwu.order_center_client.order.domain.Order">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="total_money" jdbcType="BIGINT" property="totalMoney" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
+    </resultMap>
+
+    <resultMap id="BaseResultHandlerMap" type="com.yiwu.order_center_server.dto.OrderDto">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+        <result column="total_money"  property="totalMoney" typeHandler="com.yiwu.order_center_server.common.handler.MoneyTypeHandler" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
 
     <sql id="Base_Column_List">
-        id, order_no, create_time, update_time
+        id, order_no, total_money, create_time, update_time
      </sql>
 
     <insert id="insertOrder" keyColumn="id" keyProperty="id"
             parameterType="com.yiwu.order_center_client.order.domain.Order" useGeneratedKeys="true">
         insert into `order`
-        (order_no, create_time, update_time)
+        (order_no, total_money, create_time, update_time)
         values
-        (#{orderNo}, #{createTime}, #{updateTime})
+        (#{orderNo}, #{totalMoney}, #{createTime}, #{updateTime})
     </insert>
 
     <select id="selectOrderById" resultType="com.yiwu.order_center_client.order.domain.Order">
@@ -33,5 +42,13 @@
         from `order`
         where order_no = #{orderNo}
     </select>
+
+    <select id="selectOrderDtoById" resultType="com.yiwu.order_center_server.dto.OrderDto">
+        select
+        <include refid="Base_Column_List"/>
+        from `order`
+        where id = #{id}
+    </select>
+
 
 </mapper>

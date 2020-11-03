@@ -2,6 +2,7 @@ package com.yiwu.order_center_server.service.order;
 
 import com.yiwu.order_center_client.order.domain.Order;
 import com.yiwu.order_center_server.dao.OrderDao;
+import com.yiwu.order_center_server.dto.OrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,10 @@ public class OrderService {
 
     public Order findOrderByOrderNo(String orderNo) {
         return orderDao.selectOrderByOrderNo(orderNo);
+    }
+
+    public OrderDto findOrderDtoById(Long id) {
+        return orderDao.selectOrderDtoById(id);
     }
 
 }

@@ -12,6 +12,7 @@ import java.util.Date;
 public class Order {
     private Long id;
     private String orderNo;
+    private Long totalMoney;
     private Date createTime;
     private Date updateTime;
 }

@@ -5,6 +5,7 @@ import com.yiwu.order_center_client.common.Resp;
 import com.yiwu.order_center_client.order.domain.Order;
 import com.yiwu.order_center_server.common.rabbitmq.producer.HelloSender;
 import com.yiwu.order_center_server.common.rabbitmq.producer.TopicSender;
+import com.yiwu.order_center_server.dto.OrderDto;
 import com.yiwu.order_center_server.exception.BusinessException;
 import com.yiwu.order_center_server.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +35,12 @@ public class OrderController {
         Date now = new Date();
         order.setCreateTime(now);
         order.setUpdateTime(now);
+        order.setTotalMoney(12340000L);
         Long orderId = orderService.addOrder(order);
-        String orderStr = new Gson().toJson(order);
+//        String orderStr = new Gson().toJson(order);
 //        helloSender.send(orderStr);
-        topicSender.send1(orderStr);
-        topicSender.send2(orderStr);
+//        topicSender.send1(orderStr);
+//        topicSender.send2(orderStr);
 
         return Resp.success(orderId);
     }
@@ -48,6 +50,16 @@ public class OrderController {
         Order order = orderService.findOrderByOrderNo(orderNo);
         return Resp.success(order);
     }
+
+    @GetMapping("/findOrderById")
+    public Resp<OrderDto> findOrderInfoByOrderNo(@RequestParam Long id) {
+        OrderDto order = orderService.findOrderDtoById(id);
+        return Resp.success(order);
+    }
+
+
+
+
 
     @GetMapping("/test")
     public Resp errorTest() {

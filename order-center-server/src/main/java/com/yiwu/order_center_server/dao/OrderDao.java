@@ -1,6 +1,7 @@
 package com.yiwu.order_center_server.dao;
 
 import com.yiwu.order_center_client.order.domain.Order;
+import com.yiwu.order_center_server.dto.OrderDto;
 
 /**
  * @Author: fuzf
@@ -14,4 +15,5 @@ public interface OrderDao {
 
     Order selectOrderById(Long id);
 
+    OrderDto selectOrderDtoById(Long id);
 }
