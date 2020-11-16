@@ -1,10 +1,14 @@
 package com.yiwu.order_center_server.service.order;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yiwu.order_center_client.order.domain.Order;
 import com.yiwu.order_center_server.dao.OrderDao;
 import com.yiwu.order_center_server.dto.OrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Author: fuzf
@@ -33,4 +37,10 @@ public class OrderService {
         return orderDao.selectOrderDtoById(id);
     }
 
+    public PageInfo<Order> orderList(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Order> list = orderDao.selectByParams();
+        return new PageInfo(list);
+
+    }
 }

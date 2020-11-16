@@ -1,5 +1,6 @@
 package com.yiwu.order_center_server.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.yiwu.order_center_client.common.Resp;
 import com.yiwu.order_center_client.order.domain.Order;
@@ -57,6 +58,11 @@ public class OrderController {
         return Resp.success(order);
     }
 
+    @GetMapping("/findOrderList")
+    public Resp<PageInfo<Order>> orderList(@RequestParam Integer pageNum,
+                                           @RequestParam Integer pageSize) {
+        return Resp.success(orderService.orderList(pageNum, pageSize));
+    }
 
 
 

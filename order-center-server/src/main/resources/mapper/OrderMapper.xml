@@ -50,5 +50,9 @@
         where id = #{id}
     </select>
 
-
+    <select id="selectByParams"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `order`
+    </select>
 </mapper>

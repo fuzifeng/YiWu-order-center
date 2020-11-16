@@ -6,9 +6,9 @@ spring:
     name: order-center
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.15.110:3306/order-center?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
-    username: fuzifeng
-    password: 123456
+    url: jdbc:mysql://localhost:3306/order-center?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+    username: root
+    password:
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       minimum-idle: 5
@@ -44,8 +44,10 @@ mybatis:
   type-handlers-package: com.yiwu.order_center_server.common.handler
   configuration:
     map-underscore-to-camel-case: true
-
 logging:
   config: classpath:log4j2-spring.xml
   level:
     cn.jay.repository: debug
+pagehelper:
+  reasonable: true
+  support-methods-arguments: true
