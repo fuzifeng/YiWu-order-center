@@ -1,9 +1,10 @@
 package com.yiwu.order_center_server.dao;
 
-import com.yiwu.order_center_client.order.domain.Order;
+import com.yiwu.order_center_server.domain.Order;
 import com.yiwu.order_center_server.dto.OrderDto;
 
 import java.util.List;
+
 
 /**
  * @Author: fuzf

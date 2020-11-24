@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yiwu.order_center_server.dao.OrderDao">
-    <resultMap id="BaseResultMap" type="com.yiwu.order_center_client.order.domain.Order">
+    <resultMap id="BaseResultMap" type="com.yiwu.order_center_server.domain.Order">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
     <result column="total_money" jdbcType="BIGINT" property="totalMoney" />
@@ -22,21 +22,21 @@
      </sql>
 
     <insert id="insertOrder" keyColumn="id" keyProperty="id"
-            parameterType="com.yiwu.order_center_client.order.domain.Order" useGeneratedKeys="true">
+            parameterType="com.yiwu.order_center_server.domain.Order" useGeneratedKeys="true">
         insert into `order`
         (order_no, total_money, create_time, update_time)
         values
         (#{orderNo}, #{totalMoney}, #{createTime}, #{updateTime})
     </insert>
 
-    <select id="selectOrderById" resultType="com.yiwu.order_center_client.order.domain.Order">
+    <select id="selectOrderById" resultType="com.yiwu.order_center_server.domain.Order">
         select
         <include refid="Base_Column_List"/>
         from `order`
         where id = #{id}
     </select>
 
-    <select id="selectOrderByOrderNo" resultType="com.yiwu.order_center_client.order.domain.Order">
+    <select id="selectOrderByOrderNo" resultType="com.yiwu.order_center_server.domain.Order">
         select
         <include refid="Base_Column_List"/>
         from `order`

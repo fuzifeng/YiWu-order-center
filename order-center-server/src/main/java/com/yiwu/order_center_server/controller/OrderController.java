@@ -3,12 +3,15 @@ package com.yiwu.order_center_server.controller;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.yiwu.order_center_client.common.Resp;
-import com.yiwu.order_center_client.order.domain.Order;
 import com.yiwu.order_center_server.common.rabbitmq.producer.HelloSender;
 import com.yiwu.order_center_server.common.rabbitmq.producer.TopicSender;
+import com.yiwu.order_center_server.domain.Order;
+import com.yiwu.order_center_server.domain.redis.OrderCache;
 import com.yiwu.order_center_server.dto.OrderDto;
 import com.yiwu.order_center_server.exception.BusinessException;
 import com.yiwu.order_center_server.service.order.OrderService;
+import com.yiwu.order_center_server.service.repository.OrderCacheRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +40,9 @@ public class OrderController {
     HelloSender helloSender;
     @Autowired
     TopicSender topicSender;
+
+    @Autowired
+    OrderCacheRepository orderCacheRepository;
 
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
@@ -69,6 +75,20 @@ public class OrderController {
             redisTemplate.opsForValue().set(orderNo, gsonThreadLocal.get().toJson(order), 30, TimeUnit.MINUTES);
         }
         return Resp.success(order);
+    }
+
+    @GetMapping("/findOrderByOrderNo2")
+    public Resp<OrderCache> findOrderInfoByOrderNo2(@RequestParam String orderNo) {
+        OrderCache cache = orderCacheRepository.findByOrderNo(orderNo);
+        if (cache == null) {
+            Order order = orderService.findOrderByOrderNo(orderNo);
+            if (order != null) {
+                cache = new OrderCache();
+                BeanUtils.copyProperties(order, cache);
+                orderCacheRepository.save(cache);
+            }
+        }
+        return Resp.success(cache);
     }
 
     @GetMapping("/findOrderById")

@@ -4,7 +4,7 @@
 <mapper namespace="com.yiwu.order_center_server.dao.PersonBillDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.yiwu.order_center_client.personBill.domain.PersonBill" id="BaseResultMap">
+    <resultMap type="com.yiwu.order_center_server.domain.PersonBill" id="BaseResultMap">
         <result property="id" column="id"/>
         <result property="type" column="type"/>
         <result property="subType" column="sub_type"/>
@@ -14,6 +14,4 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
-
-
 </mapper>

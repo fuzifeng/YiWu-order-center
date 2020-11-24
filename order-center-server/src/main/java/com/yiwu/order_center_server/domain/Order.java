@@ -1,4 +1,4 @@
-package com.yiwu.order_center_client.order.domain;
+package com.yiwu.order_center_server.domain;
 
 import lombok.Data;
 

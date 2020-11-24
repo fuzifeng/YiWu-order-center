@@ -2,8 +2,8 @@ package com.yiwu.order_center_server.service.order;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.yiwu.order_center_client.order.domain.Order;
 import com.yiwu.order_center_server.dao.OrderDao;
+import com.yiwu.order_center_server.domain.Order;
 import com.yiwu.order_center_server.dto.OrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
