@@ -10,9 +10,11 @@ import com.yiwu.order_center_server.dto.OrderDto;
 import com.yiwu.order_center_server.exception.BusinessException;
 import com.yiwu.order_center_server.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: fuzf
@@ -21,6 +23,12 @@ import java.util.Date;
 @RestController
 @RequestMapping("/web/order-center/order")
 public class OrderController {
+    private static ThreadLocal<Gson> gsonThreadLocal = new ThreadLocal<Gson>(){
+        @Override
+        protected Gson initialValue() {
+            return new Gson();
+        }
+    };
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(OrderController.class);
 
     @Autowired
@@ -30,6 +38,8 @@ public class OrderController {
     @Autowired
     TopicSender topicSender;
 
+    @Autowired
+    RedisTemplate<String, Object> redisTemplate;
 
     @PostMapping("/createOrder")
     public Resp<Long> order(@RequestBody Order order) {
@@ -48,7 +58,16 @@ public class OrderController {
 
     @GetMapping("/findOrderByOrderNo")
     public Resp<Order> findOrderInfoByOrderNo(@RequestParam String orderNo) {
-        Order order = orderService.findOrderByOrderNo(orderNo);
+        Order order = null;
+        Object redisOrder = redisTemplate.opsForValue().get(orderNo);
+        if (redisOrder != null) {
+            log.info("read order info from redis");
+            order = gsonThreadLocal.get().fromJson(redisOrder.toString(), Order.class);
+        }
+        if (order == null) {
+            order = orderService.findOrderByOrderNo(orderNo);
+            redisTemplate.opsForValue().set(orderNo, gsonThreadLocal.get().toJson(order), 30, TimeUnit.MINUTES);
+        }
         return Resp.success(order);
     }
 
@@ -63,9 +82,6 @@ public class OrderController {
                                            @RequestParam Integer pageSize) {
         return Resp.success(orderService.orderList(pageNum, pageSize));
     }
-
-
-
 
     @GetMapping("/test")
     public Resp errorTest() {

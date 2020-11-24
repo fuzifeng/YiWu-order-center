@@ -41,6 +41,7 @@
         <include refid="Base_Column_List"/>
         from `order`
         where order_no = #{orderNo}
+        limit 1
     </select>
 
     <select id="selectOrderDtoById" resultType="com.yiwu.order_center_server.dto.OrderDto">
