@@ -65,11 +65,11 @@ public class OrderController {
     @GetMapping("/findOrderByOrderNo")
     public Resp<Order> findOrderInfoByOrderNo(@RequestParam String orderNo) {
         Order order = null;
-        Object redisOrder = redisTemplate.opsForValue().get(orderNo);
+        /*Object redisOrder = redisTemplate.opsForValue().get(orderNo);
         if (redisOrder != null) {
             log.info("read order info from redis");
             order = gsonThreadLocal.get().fromJson(redisOrder.toString(), Order.class);
-        }
+        }*/
         if (order == null) {
             order = orderService.findOrderByOrderNo(orderNo);
             redisTemplate.opsForValue().set(orderNo, gsonThreadLocal.get().toJson(order), 30, TimeUnit.MINUTES);
