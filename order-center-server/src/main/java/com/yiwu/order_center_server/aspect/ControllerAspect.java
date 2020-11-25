@@ -17,22 +17,27 @@ import java.util.Arrays;
 @Slf4j
 public class ControllerAspect {
 
-    @Around("daoAroundLog()")
-    public Object logDao(ProceedingJoinPoint point) throws Throwable {
-        long startTime = System.currentTimeMillis();
-        methodInfo(point);
+    @Around("controllerAroundLog()")
+    public Object logController(ProceedingJoinPoint point) throws Throwable {
+        long t1 = System.currentTimeMillis();
+        String name = "-";
+        String targetMethodParams= "-";
         try {
+            name = point.getSignature().toShortString();
+            targetMethodParams = Arrays.toString(point.getArgs());
             return point.proceed();
-        } catch (Throwable throwable) {
+        }  catch (Throwable throwable) {
+            log.error(throwable.getMessage());
             throw throwable;
         } finally {
-            long endTime = System.currentTimeMillis();
-            log.info("interface use time: {} ms", endTime - startTime);
+            long t2 = System.currentTimeMillis();
+            log.info("controller time log, name: {}, params: {}, use time: {}ms",
+                    name, targetMethodParams, (t2 - t1));
         }
     }
 
     @Pointcut("execution(* com.yiwu.order_center_server.controller..*(..))")
-    private void daoAroundLog() {
+    private void controllerAroundLog() {
     }
 
     private void methodInfo(ProceedingJoinPoint jp) throws NoSuchMethodException {

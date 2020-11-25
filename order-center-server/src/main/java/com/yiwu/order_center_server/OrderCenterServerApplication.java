@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("com.yiwu.order_center_server.dao")
+
 public class OrderCenterServerApplication {
 
     public static void main(String[] args) {
