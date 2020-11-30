@@ -12,12 +12,12 @@ import reactor.core.scheduler.Schedulers;
 
 @SpringBootApplication
 @Slf4j
-public class SimpleReactiveDemo implements ApplicationRunner {
+public class SimpleReactiveDemo /*implements ApplicationRunner*/ {
     public static void main(String[] args) {
         SpringApplication.run(SimpleReactiveDemo.class, args);
     }
 
-    @Override
+    /*@Override*/
     public void run(ApplicationArguments args) throws Exception {
         Flux.range(1, 6)
                 .doOnRequest(n -> log.info("Request {} number", n))
