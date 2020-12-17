@@ -89,13 +89,14 @@ public class ExcelController {
                     continue;
                 }
 
-                String area = ExcelUtils.getStringCellValue(row.getCell(1));
-                String unit = ExcelUtils.getStringCellValue(row.getCell(2));
+                String area = ExcelUtils.getStringCellValue(row.getCell(1)).replaceAll(" ", "");
+                String unit = ExcelUtils.getStringCellValue(row.getCell(2)).replaceAll(" ", "");
+
                 if (map.containsKey(area)) {
                     map.get(area).add(unit.trim());
                 } else {
                     Set<String> set = new HashSet<>();
-                    set.add(unit.replaceAll(" ", ""));
+                    set.add(unit);
                     map.put(area, set);
                     sss.add(area);
                 }
