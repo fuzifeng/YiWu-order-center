@@ -1,5 +1,6 @@
 package com.yiwu.order_center_server.interceptor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -9,10 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author fuzf
  */
+@Slf4j
 public class PermissionInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        log.info("uri：" + request.getRequestURI());
 
         //记录请求信息
         String method = request.getMethod();
@@ -24,10 +28,6 @@ public class PermissionInterceptor implements HandlerInterceptor {
             return true;
         }
 
-//        if (CommonInfoHolder.getBranchId() == null) {
-//            ULogger.error("访问失败，branchId为空");
-//            return false;
-//        }
         return true;
     }
 
