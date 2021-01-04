@@ -54,9 +54,9 @@ public class OrderController {
         order.setUpdateTime(now);
         order.setTotalMoney(12340000L);
         Long orderId = orderService.addOrder(order);
-//        String orderStr = new Gson().toJson(order);
+        String orderStr = gsonThreadLocal.get().toJson(order);
 //        helloSender.send(orderStr);
-//        topicSender.send1(orderStr);
+        topicSender.send1(orderStr);
 //        topicSender.send2(orderStr);
 
         return Resp.success(orderId);
