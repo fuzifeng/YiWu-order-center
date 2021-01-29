@@ -54,7 +54,7 @@ mybatis:
   type-handlers-package: com.yiwu.order_center_server.common.handler
   configuration:
     map-underscore-to-camel-case: true
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 logging:
   config: classpath:log4j2-spring.xml
   level:

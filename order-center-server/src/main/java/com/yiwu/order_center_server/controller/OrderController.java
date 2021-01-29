@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.yiwu.order_center_client.common.Resp;
 import com.yiwu.order_center_server.common.rabbitmq.producer.HelloSender;
 import com.yiwu.order_center_server.common.rabbitmq.producer.TopicSender;
+import com.yiwu.order_center_server.config.target.AccessLimit;
 import com.yiwu.order_center_server.domain.Order;
 import com.yiwu.order_center_server.domain.redis.OrderCache;
 import com.yiwu.order_center_server.dto.OrderDto;
@@ -62,6 +63,7 @@ public class OrderController {
         return Resp.success(orderId);
     }
 
+    @AccessLimit(second = 10, maxCount = 2)
     @GetMapping("/findOrderByOrderNo")
     public Resp<Order> findOrderInfoByOrderNo(@RequestParam String orderNo) {
         Order order = null;
