@@ -3,6 +3,7 @@ package com.yiwu.order_center_server.interceptor;
 import com.google.gson.Gson;
 import com.yiwu.order_center_client.common.Resp;
 import com.yiwu.order_center_server.config.target.AccessLimit;
+import com.yiwu.order_center_server.dao.OrderDao;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,12 @@ import java.io.OutputStream;
 @Slf4j
 public class DefendFreshInterceptor implements HandlerInterceptor {
 
+    @Autowired
+    RedisTemplate redisTemplate;
+
 //    @Autowired
-//    RedisTemplate<String, Integer> redisTemplate;
+//    OrderDao orderDao;
+
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
