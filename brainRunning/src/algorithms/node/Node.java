@@ -6,11 +6,11 @@ import java.util.List;
  * @author fuzf
  */
 public class Node {
-    public int value;
+    public int val;
     public Node next;
 
-    public Node(int value, Node next) {
-        this.value = value;
+    public Node(int val, Node next) {
+        this.val = val;
         this.next = next;
     }
 
@@ -22,6 +22,13 @@ public class Node {
         Node n1 = new Node(1, n2);
 
         return n1;
+    }
+
+    public static void printNode(Node node) {
+        while (node != null) {
+            System.out.print(node.val + " ");
+            node = node.next;
+        }
     }
 
     public static Node getInstance(int[] nums){
@@ -40,7 +47,7 @@ public class Node {
         int[] a = {1, 2, 3, 12, 3};
         Node node = Node.getInstance(a);
         while (node != null) {
-            System.out.print(node.value + " ");
+            System.out.print(node.val + " ");
             node = node.next;
         }
     }
