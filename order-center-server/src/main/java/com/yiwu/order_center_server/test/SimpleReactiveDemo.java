@@ -20,7 +20,7 @@ public class SimpleReactiveDemo /*implements ApplicationRunner*/ {
     /*@Override*/
     public void run(ApplicationArguments args) throws Exception {
         Flux.range(1, 6)
-                .doOnRequest(n -> log.info("Request {} number", n))
+                .doOnRequest(n -> log.info("Request {} algorithms.number", n))
                 .publishOn(Schedulers.elastic())
 
                 .doOnComplete(() -> log.info("Publisher COMPLETE 1"))
