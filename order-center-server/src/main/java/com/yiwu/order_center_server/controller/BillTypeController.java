@@ -1,8 +1,8 @@
 package com.yiwu.order_center_server.controller;
 
-import com.yiwu.order_center_client.billType.domain.BillType;
 import com.yiwu.order_center_client.common.Resp;
 import com.yiwu.order_center_client.common.enums.DelEnum;
+import com.yiwu.order_center_server.domain.BillType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

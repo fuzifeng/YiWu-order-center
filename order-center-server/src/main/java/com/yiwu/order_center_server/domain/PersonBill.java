@@ -1,10 +1,11 @@
-package com.yiwu.order_center_client.personBill.domain;
+package com.yiwu.order_center_server.domain;
 
 
-import java.math.BigDecimal;
-import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author fuzifeng

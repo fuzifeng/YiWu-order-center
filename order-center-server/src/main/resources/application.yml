@@ -44,15 +44,11 @@ mybatis:
   type-handlers-package: com.yiwu.order_center_server.common.handler
   configuration:
     map-underscore-to-camel-case: true
-
-
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 logging:
   config: classpath:log4j2-spring.xml
   level:
-    cn.jay.repository: debug
-
+    cn.jay.repository: info
 pagehelper:
-  offset-as-page-num: true # offset作为页码来使用
-  reasonable: true #页码小于0时 帮助较大
-  page-size-zero: true # 页码是0 查找所有
-  support-methods-arguments: true # 方法参数的支持
+  reasonable: true
+  support-methods-arguments: true

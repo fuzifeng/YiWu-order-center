@@ -1,16 +1,16 @@
-package com.yiwu.order_center_client.billType.domain;
+package com.yiwu.order_center_server.domain;
 
 
-import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * @author fuzifeng
  * @date 2020-09-14 18:29:42
  */
 @Data
-public class BillType{
+public class BillType {
 
 	private Long id;
 	/**
