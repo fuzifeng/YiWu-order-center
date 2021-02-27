@@ -22,29 +22,32 @@ import java.util.Arrays;
 public class ThreeNumsClosetMain {
 
     public static void main(String[] args) {
-        System.out.println(threeSumClosest(new int[]{-1,2,1,-4},1));
+        System.out.println(threeSumClosest(new int[]{-3,-2,-5,3,-4},-1));
     }
 
 
     public static int threeSumClosest(int[] nums, int target) {
-        int closet = Integer.MAX_VALUE;
-        int result = 0;
+        Integer result = null;
         Arrays.sort(nums);
         for (int i = 0; i < nums.length - 2; i++) {
-            int left = nums[i];
+            int left = i;
 
             int zhong = i + 1;
-            int right = nums.length - 1;
+
 
             for (; zhong < nums.length - 1; zhong++) {
                 if (zhong != i + 1 && nums[zhong] == nums[zhong - 1]) {
                     continue;
                 }
-                for (; right > zhong; right--) {
+                for (int right = nums.length - 1; right > zhong; right--) {
                     if (nums[left] + nums[zhong] + nums[right] == target) {
                         return target;
                     }
-                    if (closet > Math.abs(target - (nums[left] + nums[zhong] + nums[right]))) {
+                    if (result == null) {
+                        result = nums[left] + nums[zhong] + nums[right];
+                        continue;
+                    }
+                    if (Math.abs(target - result) > Math.abs(target - (nums[left] + nums[zhong] + nums[right]))) {
                         result = nums[left] + nums[zhong] + nums[right];
                     }
                 }
