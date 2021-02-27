@@ -6,9 +6,9 @@ spring:
     name: order-center
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.15.110:3306/order-center?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
-    username: fuzifeng
-    password: 123456
+    url: jdbc:mysql://localhost:3306/order-center?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+    username: root
+    password:
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       minimum-idle: 5
@@ -24,6 +24,7 @@ spring:
     #    基于feign的接口调用，会生成很多{serverName}.FeignClientSpecification类的bean，
     main:
       allow-bean-definition-overriding: true
+
   jackson:
 
     date-format: yyyy-MM-dd HH:mm:ss
@@ -36,6 +37,15 @@ spring:
     username: admin
     password: admin
     virtual-host: /
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+    database: 0
+    lettuce:
+      pool:
+        max-active: 5
+        max-idle: 5
 
 
 
