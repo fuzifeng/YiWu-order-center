@@ -1,4 +1,5 @@
 spring程序是如何启动的？
+
 spring是如何加载配置文件到应用程序的？
 掌握核心接口BeanDefinitionReader
 掌握核心接口BeanFactory
@@ -6,10 +7,65 @@ spring是如何加载配置文件到应用程序的？
 BeanPostProcessor接口的作用及实现
 BeanFactoryPostProcessor接口的作用及实现
 Spring Bean有没有必要实现Aware接口
-彻底理解bean的生命周期
+
+彻底理解bean的生命周期（Bean对象是如何创建的？）
+    实例化：在对空间中申请一块内存，默认属性值是默认值
+    初始化：
+        给属性赋值
+        调用执行Aware接口的方法
+        执行before的方法————BeanPostProcessor
+        执行init-method方法
+        执行after方法————BeanPostProcessor
+        完整对象
+        销毁
+
+
 循环依赖问题
+    默认bean为单例
+    赋值操作
+        set（如何解决循环依赖，面试关注点）
+        构造器（没有办法解决）
+    三级缓存（提前暴露对象）
+        一级缓存：Map<String, Object> singletonObjects  key是beanName value是对象、内存地址（成品）
+        二级缓存：Map<String, Object> earlySingletonObjects  key是beanName value是对象、内存地址（半成品）
+        三级缓存：Map<String, ObjectFactory<?>> singletonFactories  key是beanName，value是lambda表达式
+            getCreateBean添加三级缓存
+            getSingleton取三级缓存
+
+    创建A对象————>实例化A对象（b=null）————>初始化A对象，给B属性赋值————>从容器中查找B对象————>如果找到直接赋值即可；没有找到需要创建B对象
+
+  ——>创建B对象（a=null）————>初始化B对象，给a属性赋值————>从容器中找A对象————>找到则赋值；没找到则创建
+
+    上述流程产生闭环，也就是循环依赖，解决：查找A对象的时候不要直接创建，如果循环后没有创建A对象的过程，就不会形成闭环；
+    关键点在于缓存的存在，一系列Map的结构数据
+
+    在AB对象创建过程中，存在成品/半成品（完成实例化未完成初始化）两种状态；其实两类不用状态的对象存放在不用map结构中，及两种不同的缓存；一级缓存方成品，二级缓存放半成品；
+
+    为什么会有三级缓存呢？在整个对象创建的过程中，一共只有成品和半成品2状态的对象，三级缓存的价值呢？
+        当被代理的对象之间存在循环依赖问题的时候，需要使用三级缓存；没有代理对象的产生，只需要二级缓存即可；
+        为什么？
+            因为在spring容器中，同名的bean有1个
+            在创建对象的过程中，能否知道对象什么时候被代理？不能
+            在创建对象的时候，要遵循标准bean创建流程，也就是无论对象是否被代理，总会提前生成一普通对象；如果执行过程中发现了需要创建代理对象，要使用代理对象将原来普通的对象覆盖掉；
+            需要用lambda表达式来判断是普通对象还是代理对象；
+            保证对外暴露的同名对象只有一个
+
 factoryBean接口的作用
+    可以通过实现factoryBean接口简化bean的创建过程
+    isSingleton：判断是否是单例
+    getObjectType：返回对象类型
+    getObject：一般自定义实现，可以自己创建对象并且交给spring来进行管理
+
+BeanFactory
+    所有的bean对象在生成的时候需要遵循严格的生命周期，整个过程比较麻烦
+
 bean的初始化都经历了什么
 cglib和jdk动态代理的机制
 aop是如何处理的
+    AOP：面向切面编程
+
+    动态代理：
+        jdk
+        cglib
+
 如何回答spring相关的问题
