@@ -42,25 +42,25 @@ import java.util.HashMap;
 public class LargeNoRepeatStringMain {
 
     public static void main(String[] args) {
-        String s = "abba";
+        String s = "ababc";
         System.out.println(lengthOfLongestSubstring(s));
     }
 
     public static int lengthOfLongestSubstring(String s) {
-            if ("".equals(s)) {
-                return 0;
+        if ("".equals(s)) {
+            return 0;
+        }
+        char[] chars = s.toCharArray();
+        int max = 0, left = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < chars.length; i++) {
+            char c = chars[i];
+            if (map.containsKey(c)) {
+                left = Math.max(map.get(c) + 1, left);
             }
-            char[] chars = s.toCharArray();
-            int max = 0, left = 0;
-            HashMap<Character, Integer> map = new HashMap<>();
-            for (int i = 0; i < chars.length; i++) {
-                char c = chars[i];
-                if (map.containsKey(c)) {
-                    left = Math.max(map.get(c) + 1, i);
-                }
-                map.put(c, i);
-                max = Math.max(max, i - left + 1);
-            }
-            return max;
+            map.put(c, i);
+            max = Math.max(max, i - left + 1);
+        }
+        return max;
     }
 }
