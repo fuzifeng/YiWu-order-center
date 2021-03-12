@@ -44,23 +44,12 @@ public class DefendFreshInterceptor implements HandlerInterceptor {
             }
             int seconds = accessLimit.second();
             int maxCount = accessLimit.maxCount();
-            boolean needLogin = accessLimit.needLogin();
             String key = request.getRequestURI();
-            //如果需要登录，判断一下userId等信息
-            if (needLogin) {
-                //正式情况需要加密
-                String userId = request.getHeader("userId");
-                if (Strings.isEmpty(userId)) {
-                    //没有登陆
-                    render(response,"请登录后访问");
-                    return false;
-                }
-                key = key + "_" + userId;
-            }
-//            redisTemplate.opsForValue().increment()
-            log.info("seconds:{}, maxCount:{}, needLogin:{}", seconds, maxCount, needLogin);
-        }
 
+//            redisTemplate.opsForValue().increment()
+            log.info("seconds:{}, maxCount:{}", seconds, maxCount);
+
+        }
 
         return true;
     }

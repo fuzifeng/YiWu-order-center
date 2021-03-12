@@ -1,6 +1,7 @@
 package com.yiwu.order_center_server.config;
 
 import com.yiwu.order_center_server.interceptor.DefendFreshInterceptor;
+import com.yiwu.order_center_server.interceptor.LoginCheckInterceptor;
 import com.yiwu.order_center_server.interceptor.PermissionInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,10 +23,16 @@ public class InterceptorConfig implements WebMvcConfigurer {
         return new DefendFreshInterceptor();
     }
 
+    @Bean
+    LoginCheckInterceptor loginCheckInterceptor() {
+        return new LoginCheckInterceptor();
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //注册自定义拦截器，添加拦截路径和排除拦截路径
         registry.addInterceptor(interceptor());
         registry.addInterceptor(defendFreshInterceptor());
+        registry.addInterceptor(loginCheckInterceptor());
     }
 }
