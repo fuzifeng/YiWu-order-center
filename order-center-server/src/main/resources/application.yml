@@ -5,20 +5,26 @@ spring:
   application:
     name: order-center
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/order-center?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
-    username: root
-    password:
-    type: com.zaxxer.hikari.HikariDataSource
-    hikari:
-      minimum-idle: 5
-      maximum-pool-size: 15
-      auto-commit: true
-      idle-timeout: 30000
-      pool-name: betaHikariCP
-      max-lifetime: 1800000
-      connection-timeout: 30000
-      connection-test-query: select 1
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/order-center?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+#    data-username: root
+#    data-password:
+#    type: com.alibaba.druid.pool.DruidDataSource
+    master:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/order-center?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+      username: root
+      password:
+      type: com.zaxxer.hikari.HikariDataSource
+      hikari:
+        minimum-idle: 5
+        maximum-pool-size: 15
+        auto-commit: true
+        idle-timeout: 30000
+        pool-name: betaHikariCP
+        max-lifetime: 1800000
+        connection-timeout: 30000
+        connection-test-query: select 1
     mvc:
       date-format: yyyy-MM-dd HH:mm:ss
     #    基于feign的接口调用，会生成很多{serverName}.FeignClientSpecification类的bean，
