@@ -1,6 +1,8 @@
 package designPattern.builder;
 
 /**
+ * 建造者模式
+ *
  * 1. 需要生成的对象具有复杂的内部结构。
  *
  * 2. 需要生成的对象内部属性本身相互依赖。
@@ -16,6 +18,13 @@ package designPattern.builder;
  */
 public class PersonDirector {
 
+    /**
+     * 调用具体建造者来创建复杂对象的各个部分，在指导者中不涉及具体产品的信息，只负
+     * 责保证对象各部分完整创建或按某种顺序创建。
+     *
+     * @param pb
+     * @return
+     */
     public Arms constructPerson(PersonBuilder pb) {
         pb.buildArmor();
         pb.buildHelmet();
@@ -25,7 +34,8 @@ public class PersonDirector {
 
     public static void main(String[] args) {
         PersonDirector pd = new PersonDirector();
-        Arms arms = pd.constructPerson(new ArmsBuilder());
+//        Arms arms = pd.constructPerson(new ArmsBuilder());
+        Arms arms = pd.constructPerson(new SuperArmsBuilder());
         System.out.println(arms.getHelmet());
         System.out.println(arms.getArmor());
         System.out.println(arms.getWeapon());
