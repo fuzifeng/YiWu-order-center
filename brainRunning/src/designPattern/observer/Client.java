@@ -44,5 +44,4 @@ public class Client {
         System.out.println("obs2观察者的MyState状态值为："+obs2.getMyState());
         System.out.println("obs3观察者的MyState状态值为："+obs3.getMyState());
     }
-
 }
