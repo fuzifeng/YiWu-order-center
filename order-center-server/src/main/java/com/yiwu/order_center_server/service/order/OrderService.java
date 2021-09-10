@@ -2,6 +2,8 @@ package com.yiwu.order_center_server.service.order;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.yiwu.order_center_server.config.DataSourceEnum;
+import com.yiwu.order_center_server.config.target.DataSourceSwitcher;
 import com.yiwu.order_center_server.dao.OrderDao;
 import com.yiwu.order_center_server.domain.Order;
 import com.yiwu.order_center_server.dto.OrderDto;
@@ -29,6 +31,7 @@ public class OrderService {
         return orderDao.selectOrderById(id);
     }
 
+    @DataSourceSwitcher(DataSourceEnum.SLAVE)
     public Order findOrderByOrderNo(String orderNo) {
         return orderDao.selectOrderByOrderNo(orderNo);
     }

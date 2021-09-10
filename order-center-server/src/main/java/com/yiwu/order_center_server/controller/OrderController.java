@@ -65,7 +65,7 @@ public class OrderController {
     }
 
 //    @AccessLimit(second = 10, maxCount = 2)
-    @LoginLimit(methodName = "通过订单号查询订单")
+//    @LoginLimit(methodName = "通过订单号查询订单")
     @GetMapping("/findOrderByOrderNo")
     public Resp<Order> findOrderInfoByOrderNo(@RequestParam String orderNo) {
         Order order = null;

@@ -67,7 +67,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>5.2.8.RELEASE</version>
+            <version>4.0.3.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -185,6 +185,18 @@
             <artifactId>retrofit-spring-boot-starter</artifactId>
             <version>2.2.2</version>
         </dependency>-->
+
+        <!-- swagger 项目初期用来调试接口，上线后去掉-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
 
     </dependencies>
 

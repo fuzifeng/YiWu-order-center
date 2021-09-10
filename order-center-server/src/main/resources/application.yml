@@ -1,29 +1,28 @@
 server:
   port: 8001
+  servlet:
+    context-path: /orderCenter/v1
 
 spring:
   application:
     name: order-center
 
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
     druid:
+      db-type: com.alibaba.druid.pool.DruidDataSource
+    master:
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://localhost:3306/order-center?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
       username: root
       password:
-
       # 连接池配置：大小，最小，最大
       initial-size: 5
       min-idle: 5
       max-active: 20
-
       # 连接等待超时时间
       max-wait: 30000
-
       # 配置检测可以关闭的空闲连接，间隔时间
       time-between-eviction-runs-millis: 60000
-
       # 配置连接在池中的最小生存时间
       min-evictable-idle-time-millis: 300000
       # 检测连接是否有，有效得select语句
@@ -40,6 +39,37 @@ spring:
       pool-prepared-statements: true
       max-open-prepared-statements: 20
       max-pool-prepared-statement-per-connection-size: 20
+
+    slave:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/order-center-slave ?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+      username: root
+      password:
+      # 连接池配置：大小，最小，最大
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      # 连接等待超时时间
+      max-wait: 30000
+      # 配置检测可以关闭的空闲连接，间隔时间
+      time-between-eviction-runs-millis: 60000
+      # 配置连接在池中的最小生存时间
+      min-evictable-idle-time-millis: 300000
+      # 检测连接是否有，有效得select语句
+      validation-query: select '1' from order
+      # 申请连接的时候检测，如果空闲时间大于time-between-eviction-runs-millis，执行validationQuery检测连接是否有效，建议配置为true，不影响性能，并且保证安全性。
+      test-while-idle: true
+      # 申请连接时执行validationQuery检测连接是否有效，建议设置为false，不然会会降低性能
+      test-on-borrow: false
+      # 归还连接时执行validationQuery检测连接是否有效，建议设置为false，不然会会降低性能
+      test-on-return: false
+
+      # 是否缓存preparedStatement，也就是PSCache  官方建议MySQL下建议关闭   个人建议如果想用SQL防火墙 建议打开
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+      max-pool-prepared-statement-per-connection-size: 20
+
 
       # 配置监控统计拦截的filters, 去掉后监控界面sql无法统计, 'wall'用于防火墙防御sql注入，stat监控统计,logback日志
 #      filters: stat,wall
@@ -141,3 +171,12 @@ logging:
 pagehelper:
   reasonable: true
   support-methods-arguments: true
+
+swagger:
+  base:
+    package: com.yiwu.order_center_server
+  api:
+    title: 人社
+    version: 0.5
+    description: 订单业务模块
+  enable: true
