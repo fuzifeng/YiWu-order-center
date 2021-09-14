@@ -31,7 +31,7 @@ public class OrderService {
         return orderDao.selectOrderById(id);
     }
 
-    @DataSourceSwitcher(DataSourceEnum.SLAVE)
+//    @DataSourceSwitcher(DataSourceEnum.SLAVE)
     public Order findOrderByOrderNo(String orderNo) {
         return orderDao.selectOrderByOrderNo(orderNo);
     }

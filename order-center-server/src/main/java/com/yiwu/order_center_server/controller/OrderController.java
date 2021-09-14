@@ -36,6 +36,8 @@ public class OrderController {
     };
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(OrderController.class);
 
+    private static final String getOrderKey = "orderNo:";
+
     @Autowired
     private OrderService orderService;
     @Autowired
@@ -69,15 +71,27 @@ public class OrderController {
     @GetMapping("/findOrderByOrderNo")
     public Resp<Order> findOrderInfoByOrderNo(@RequestParam String orderNo) {
         Order order = null;
-        /*Object redisOrder = redisTemplate.opsForValue().get(orderNo);
-        if (redisOrder != null) {
-            log.info("read order info from redis");
-            order = gsonThreadLocal.get().fromJson(redisOrder.toString(), Order.class);
-        }*/
-        if (order == null) {
-            order = orderService.findOrderByOrderNo(orderNo);
-            redisTemplate.opsForValue().set(orderNo, gsonThreadLocal.get().toJson(order), 30, TimeUnit.MINUTES);
+        String redisKey = getOrderKey + orderNo;
+        if (redisTemplate.opsForValue().setIfAbsent(redisKey, 1, 10, TimeUnit.HOURS)) {
+            try {
+                Object redisOrder = redisTemplate.opsForValue().get(orderNo);
+                if (redisOrder != null) {
+                    log.info("read order info from redis");
+                    order = gsonThreadLocal.get().fromJson(redisOrder.toString(), Order.class);
+                }
+                if (order == null) {
+                    order = orderService.findOrderByOrderNo(orderNo);
+                    redisTemplate.opsForValue().set(orderNo, gsonThreadLocal.get().toJson(order), 30, TimeUnit.MINUTES);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                redisTemplate.delete(redisKey);
+            }
+        } else {
+            return Resp.error("请求频繁");
         }
+
         return Resp.success(order);
     }
 
