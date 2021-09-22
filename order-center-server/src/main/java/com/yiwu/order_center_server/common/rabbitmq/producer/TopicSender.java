@@ -1,8 +1,14 @@
 package com.yiwu.order_center_server.common.rabbitmq.producer;
 
+import com.yiwu.order_center_server.config.RabbitConfig;
+import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 /**
  * @Author: fuzf
@@ -26,5 +32,24 @@ public class TopicSender {
         System.out.println("Sender : " + context);
         this.rabbitTemplate.convertAndSend("mytopicexchange", "topic.messages", context);
     }
+
+
+
+    public void sendOrder(String str) {
+        String context = "hi, i am order message; order:" + str;
+        System.out.println(new Date());
+        System.out.println("Sender : " + context);
+        this.rabbitTemplate.convertAndSend(RabbitConfig.DELAY_EXCHANGE, RabbitConfig.DELAY_ROUTING_KEY, context, new MessagePostProcessor() {
+            @Override
+            public Message postProcessMessage(Message message) throws AmqpException {
+//                message.getMessageProperties().setExpiration("60000");
+                message.getMessageProperties().setHeader("x-delay","10000");
+                return message;
+            }
+        });
+//        this.rabbitTemplate.convertAndSend("order.exchange", "order.#", context);
+    }
+
+
 
 }

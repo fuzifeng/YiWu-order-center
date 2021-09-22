@@ -4,6 +4,7 @@
     <resultMap id="BaseResultMap" type="com.yiwu.order_center_server.domain.Order">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="status" property="status" />
     <result column="total_money" jdbcType="BIGINT" property="totalMoney" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -12,13 +13,14 @@
     <resultMap id="BaseResultHandlerMap" type="com.yiwu.order_center_server.dto.OrderDto">
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+        <result column="status" jdbcType="VARCHAR" property="orderNo" />
         <result column="total_money"  property="totalMoney" typeHandler="com.yiwu.order_center_server.common.handler.MoneyTypeHandler" />
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, order_no, total_money, create_time, update_time
+        id, order_no, status, total_money, create_time, update_time
      </sql>
 
     <insert id="insertOrder" keyColumn="id" keyProperty="id"

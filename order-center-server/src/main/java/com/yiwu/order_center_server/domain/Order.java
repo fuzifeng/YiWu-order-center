@@ -16,4 +16,5 @@ public class Order {
     private Long totalMoney;
     private Date createTime;
     private Date updateTime;
+    private Integer status;
 }

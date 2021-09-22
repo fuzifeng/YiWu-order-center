@@ -8,6 +8,7 @@ import com.yiwu.order_center_server.common.rabbitmq.producer.TopicSender;
 import com.yiwu.order_center_server.config.target.AccessLimit;
 import com.yiwu.order_center_server.config.target.LoginLimit;
 import com.yiwu.order_center_server.domain.Order;
+import com.yiwu.order_center_server.domain.OrderDispatch;
 import com.yiwu.order_center_server.domain.redis.OrderCache;
 import com.yiwu.order_center_server.dto.OrderDto;
 import com.yiwu.order_center_server.exception.BusinessException;
@@ -60,8 +61,9 @@ public class OrderController {
         Long orderId = orderService.addOrder(order);
         String orderStr = gsonThreadLocal.get().toJson(order);
 //        helloSender.send(orderStr);
-        topicSender.send1(orderStr);
+//        topicSender.send1(orderStr);
 //        topicSender.send2(orderStr);
+        topicSender.sendOrder(order.getOrderNo());
 
         return Resp.success(orderId);
     }
@@ -137,4 +139,18 @@ public class OrderController {
         return Resp.success();
     }
 
+    @PostMapping("/payOrder")
+    public Resp payOrder(@RequestParam String orderNo) {
+        Order order = orderService.findOrderByOrderNo(orderNo);
+        if (order != null) {
+            OrderDispatch dispatch = new OrderDispatch();
+            dispatch.setOrderId(order.getId());
+            dispatch.setOrderNo(order.getOrderNo());
+            dispatch.setAddress("暂无");
+            dispatch.setStatus(0);
+
+
+        }
+        return Resp.error("无效订单号");
+    }
 }
