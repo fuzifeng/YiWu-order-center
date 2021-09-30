@@ -156,6 +156,14 @@ spring:
         max-active: 5
         max-idle: 5
 
+  elasticsearch:
+    rest:
+      connection-timeout: 1s
+      username:
+      password:
+      read-timeout: 30s
+
+
 
 
 mybatis:
@@ -180,3 +188,11 @@ swagger:
     version: 0.5
     description: 订单业务模块
   enable: true
+
+file:
+  #上传的服务器的映射文件
+  accessPath: /uploadimg/
+  #静态资源对外暴露的访问路径
+  staticAccessPath: /uploadimg/**
+  #文件上传目录
+  uploadFolder: C://img//
