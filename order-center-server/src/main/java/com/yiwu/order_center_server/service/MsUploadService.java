@@ -49,7 +49,7 @@ public class MsUploadService {
         System.out.println(filePath);
         System.out.println(savePath+fileName);
 
-        return savePath + fileName;
+        return "/orderCenter/v1" + savePath + fileName;
 
     }
 

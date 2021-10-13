@@ -195,4 +195,4 @@ file:
   #静态资源对外暴露的访问路径
   staticAccessPath: /uploadimg/**
   #文件上传目录
-  uploadFolder: C://img//
+  uploadFolder: C:\\img\\
