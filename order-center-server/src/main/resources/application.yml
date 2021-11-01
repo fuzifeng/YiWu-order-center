@@ -196,3 +196,17 @@ file:
   staticAccessPath: /uploadimg/**
   #文件上传目录
   uploadFolder: C:\\img\\
+
+
+rass:
+  resource:
+    client_id: Overseas-Singapore
+    client_secret: 123456
+    username: 18877889913
+    password: 123456
+
+    protocol: http://
+    host: raas-gateway.testing3.svc.k8s.bjo.wdcloud.cc
+    getToken: /auth/oauth/token
+    getPlayAuthToken: /resource/v1/resAccessToken/getPlayAuthToken
+    getDocumentAccessToken: /resource/v1/resAccessToken/getDocumentAccessToken
