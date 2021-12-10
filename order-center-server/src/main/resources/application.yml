@@ -42,7 +42,7 @@ spring:
 
     slave:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/order-center-slave ?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+      url: jdbc:mysql://localhost:3306/order-center-slave?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
       username: root
       password:
       # 连接池配置：大小，最小，最大
@@ -220,3 +220,19 @@ rass:
     getToken: /auth/oauth/token
     getPlayAuthToken: /resource/v1/resAccessToken/getPlayAuthToken
     getDocumentAccessToken: /resource/v1/resAccessToken/getDocumentAccessToken
+
+goods:
+  host: https://hrss-api.testing3.wdeduc.com/course/v1
+  goodsListUrl: /open/goodsLearner/findByCondition
+
+saas:
+  group:
+    jiazheng: 1
+    yingji: 2
+    jiaotong: 3
+    tuiyijunren: 4
+
+bigdata:
+  token: 9546a8471c6850e1ff96d868c33117ee
+  host: http://47.94.89.185:7000/wd-data-server-test
+  commonDataUrl: /common/getData

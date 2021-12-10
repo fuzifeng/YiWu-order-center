@@ -9,7 +9,9 @@ package com.yiwu.order_center_server.controller;/**
  * @Description:
  */
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Maps;
 import com.yiwu.order_center_client.common.Resp;
 import com.yiwu.order_center_server.dto.Oauth2TokenDto;
 import org.apache.commons.collections4.MultiValuedMap;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -58,6 +61,11 @@ public class ResttemplateController {
     private String username;
     @Value("${rass.resource.password}")
     private String password;
+
+    @Value("${goods.host}")
+    private String goodsHost;
+    @Value("${goods.goodsListUrl}")
+    private String goodsListUrl;
 
 
     @GetMapping("/test")
@@ -176,6 +184,61 @@ public class ResttemplateController {
             }
         } else {
 //            throw new CustomException("无法获取token");
+        }
+        return null;
+    }
+
+    @GetMapping("/getGoodsList")
+    public Resp<JSONArray> getGoodsListInterface(@RequestParam(required = false) String goodsIds) {
+        return Resp.success(getRaasToken(goodsIds));
+    }
+
+    //请求域名
+    @Value("${bigdata.host:''}")
+    private String host;
+
+    @Value("${bigdata.commonDataUrl:''}")
+    private String commonDataUrl;
+
+    //获取token接口
+    @Value("${bigdata.token}")
+    private String token;
+
+    public JSONArray getRaasToken(String saasIdStr) {
+        try {
+            String thisUrl = host + commonDataUrl;
+            Map<String, String> params = Maps.newHashMap();
+            params.put("columns","*");
+            params.put("db","prdc");
+            params.put("filter", "saas_id in(" + saasIdStr + ")");
+            params.put("table", "ads_api_dtdp_saas_satistics");
+
+            HttpHeaders re = new HttpHeaders();
+            re.add("token", token);
+            HttpEntity httpEntity = new HttpEntity(params, re);
+            RestTemplate restTemplate = new RestTemplate();
+
+//            String result = restTemplate.postForObject(thisUrl, httpEntity, String.class);
+            ResponseEntity<JSONObject> entity = restTemplate.exchange(thisUrl, HttpMethod.POST,
+                    httpEntity, JSONObject.class);
+            if (entity.getStatusCodeValue() == HttpStatus.OK.value()) {
+                JSONObject jsonObject = entity.getBody();
+                if (jsonObject != null && jsonObject.getInteger("code") == 0) {
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    if (data.containsKey("list")) {
+                        JSONArray array = data.getJSONArray("list");
+                        return array;
+                    }
+                } else {
+//                throw new CustomException("无法获取token");
+                }
+            } else {
+//            throw new CustomException("无法获取token");
+            }
+
+            int k = 0;
+        } catch (Exception e) {
+            int i = 0;
         }
         return null;
     }

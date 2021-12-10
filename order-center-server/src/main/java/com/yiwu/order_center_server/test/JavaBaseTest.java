@@ -1,5 +1,6 @@
 package com.yiwu.order_center_server.test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +17,8 @@ public class JavaBaseTest {
         list4 = Arrays.asList(s);
         int i = 0;
 
+        BigDecimal bigDecimal = new BigDecimal(0);
+        System.out.println(bigDecimal.compareTo(BigDecimal.ZERO));
     }
 
 }
