@@ -175,7 +175,6 @@ spring:
 
 
 
-
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-handlers-package: com.yiwu.order_center_server.common.handler

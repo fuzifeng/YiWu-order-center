@@ -15,16 +15,16 @@ import java.util.Date;
  * @Description:
  */
 @Data
-@Document(indexName = "book", createIndex = true)
-public class Book {
+@Document(indexName = "goods", createIndex = true)
+public class GoodsEs {
     @Id
-    @Field(type = FieldType.Text)
-    private String id;
+    @Field(type = FieldType.Long)
+    private Long id;
 
-    @Field(analyzer = "ik_max_word")
+    @Field(type = FieldType.Text)
     private String name;
 
-    @Field(analyzer = "ik_max_word")
+    @Field(type = FieldType.Text)
     private String author;
 
     @Field(type = FieldType.Text)
@@ -33,8 +33,9 @@ public class Book {
     @Field(type = FieldType.Double)
     private Double price;
 
-    @Field(type = FieldType.Date, format = DateFormat.basic_date)
+    @Field(type = FieldType.Keyword)
+    private String ucode;
+
+    @Field(type = FieldType.Date, format = DateFormat.basic_date_time)
     private Date publishTime;
-
-
 }
