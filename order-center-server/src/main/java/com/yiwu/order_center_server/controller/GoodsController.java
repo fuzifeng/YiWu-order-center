@@ -14,11 +14,10 @@ import com.yiwu.order_center_server.es.bean.GoodsEs;
 import com.yiwu.order_center_server.es.repositories.GoodsRepositories;
 import com.yiwu.order_center_server.service.es.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -38,11 +37,21 @@ public class GoodsController {
 
     @PostMapping("/addGoods")
     public Resp<Long> addGoods(@RequestBody GoodsEs goods) {
-        goods.setId(System.currentTimeMillis());
+        goods.setGid(System.currentTimeMillis());
         goodsService.saveGoods(goods);
-        return Resp.success(goods.getId());
+        return Resp.success(goods.getGid());
     }
 
+    @GetMapping("/findGoods")
+    public Resp<GoodsEs> findGoods(Long id) {
+        GoodsEs byId = goodsService.findById(id);
+        return Resp.success(byId);
+    }
 
+    @GetMapping("/findList")
+    public Resp<Page<GoodsEs>> findListByParams(
+            Integer pageNum, Integer pageSize) {
+        return Resp.success(goodsService.findList(pageNum, pageSize));
+    }
 
 }

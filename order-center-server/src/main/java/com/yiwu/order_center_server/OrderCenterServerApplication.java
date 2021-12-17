@@ -4,6 +4,8 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -21,15 +23,13 @@ import javax.annotation.PreDestroy;
 @MapperScan("com.yiwu.order_center_server.dao")
 public class OrderCenterServerApplication {
 
-    @Autowired
-    RestTemplate restTemplate;
-
     public static void main(String[] args) {
         SpringApplication.run(OrderCenterServerApplication.class, args);
     }
 
     @PostConstruct
     public void initEs() {
+        RestTemplate restTemplate = new RestTemplate();
         String url = "http://localhost:9200/_all/_settings";
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.valueOf(MediaType.APPLICATION_JSON_UTF8_VALUE));

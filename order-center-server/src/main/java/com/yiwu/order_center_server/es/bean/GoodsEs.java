@@ -19,7 +19,7 @@ import java.util.Date;
 public class GoodsEs {
     @Id
     @Field(type = FieldType.Long)
-    private Long id;
+    private Long gid;
 
     @Field(type = FieldType.Text)
     private String name;
@@ -36,6 +36,6 @@ public class GoodsEs {
     @Field(type = FieldType.Keyword)
     private String ucode;
 
-    @Field(type = FieldType.Date, format = DateFormat.basic_date_time)
-    private Date publishTime;
+//    @Field(type = FieldType.Date, format = DateFormat.basic_date_time)
+//    private Date publishTime;
 }
