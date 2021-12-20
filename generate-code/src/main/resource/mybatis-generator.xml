@@ -41,7 +41,12 @@
         <!--<ignoreColumn column="FRED" />-->
         <!--<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />-->
         <!--</table>-->
-        <table tableName="order" domainObjectName="Order"
+        <table tableName="raw_materials" domainObjectName="RawMaterials"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        <table tableName="raw_material_category" domainObjectName="RawMaterialCategory"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
