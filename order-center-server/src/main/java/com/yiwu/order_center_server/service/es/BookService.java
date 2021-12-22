@@ -78,7 +78,9 @@ public class BookService {
         if (type == null || type == 3) {
             sortBuilder = SortBuilders.fieldSort("publish_time").order(SortOrder.DESC);
 //            boolQueryBuilder.must(sortBuilder);
-        }else {
+        } else if (type == 2) {
+            sortBuilder = SortBuilders.fieldSort("update_time").order(SortOrder.DESC);
+        } else {
             sortBuilder = SortBuilders.fieldSort("id").order(SortOrder.ASC);
         }
 
