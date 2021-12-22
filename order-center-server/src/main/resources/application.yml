@@ -185,6 +185,7 @@ logging:
   config: classpath:log4j2-spring.xml
   level:
     cn.jay.repository: info
+    org.springframework.data.elasticsearch.client.WIRE: info
 pagehelper:
   reasonable: true
   support-methods-arguments: true

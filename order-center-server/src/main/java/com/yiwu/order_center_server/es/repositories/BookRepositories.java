@@ -1,6 +1,6 @@
 package com.yiwu.order_center_server.es.repositories;
 
-import com.yiwu.order_center_server.es.bean.GoodsEs;
+import com.yiwu.order_center_server.es.bean.BookEs;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  * @Description:
  */
 @Repository
-public interface GoodsRepositories extends ElasticsearchRepository<GoodsEs, String> {
+public interface BookRepositories extends ElasticsearchRepository<BookEs, String> {
 
 }
