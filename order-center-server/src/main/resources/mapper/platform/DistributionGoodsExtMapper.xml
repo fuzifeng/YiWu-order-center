@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yiwu.order_center_server.dao.DistributionGoodsDao">
+    <resultMap id="BaseResultMap" type="com.yiwu.order_center_server.platform.domain.DistributionGoods">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="relate_goods_id" property="relateGoodsId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="is_free" jdbcType="INTEGER" property="isFree" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="category_id" jdbcType="BIGINT" property="categoryId" />
+    <result column="relate_goods_id" jdbcType="BIGINT" property="relateGoodsId" />
+    <result column="category_code" jdbcType="VARCHAR" property="categoryCode" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+    <result column="goods_type" jdbcType="INTEGER" property="goodsType" />
+    <result column="channel_rate" jdbcType="DECIMAL" property="channelRate" />
+    <result column="paid_amount" jdbcType="INTEGER" property="paidAmount" />
+    <result column="paid_total_money" jdbcType="DECIMAL" property="paidTotalMoney" />
+    <result column="on_time" jdbcType="TIMESTAMP" property="onTime"/>
+    <result column="center_type" jdbcType="INTEGER" property="centerType" />
+    <result column="refer_distribution_goods_id" jdbcType="BIGINT" property="referDistributionGoodsId" />
+    <result column="refer_branch_id" jdbcType="BIGINT" property="referBranchId" />
+    <result column="refer_branch_name" jdbcType="VARCHAR" property="referBranchName" />
+    <result column="sort" jdbcType="INTEGER" property="sort"/>
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="branch_id" jdbcType="BIGINT" property="branchId" />
+    <result column="saas_id" jdbcType="BIGINT" property="saasId" />
+    <result column="branch_name" jdbcType="VARCHAR" property="branchName" />
+  </resultMap>
+    <sql id="Base_Column_List">
+    id, relate_goods_id, name, is_free, price, category_id, category_code, pic, status, goods_id, goods_type,
+    channel_rate, paid_amount, paid_total_money, on_time, center_type, refer_distribution_goods_id,
+    refer_branch_id ,refer_branch_name, sort, is_del, create_user_id, create_time,
+    update_user_id, update_time, branch_id, saas_id,branch_name
+  </sql>
+    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from o_distribution_goods
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+    <select id="findByObject" parameterType="com.yiwu.order_center_server.platform.domain.DistributionGoods" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from o_distribution_goods
+        <where>
+            is_del= 0
+            <if test="name != null">
+              and name like #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="isFree != null">
+                and is_free = #{isFree,jdbcType=INTEGER}
+            </if>
+            <if test="price != null">
+                and price = #{price,jdbcType=DECIMAL}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId,jdbcType=BIGINT}
+            </if>
+            <if test="categoryCode != null">
+                and category_code like #{categoryCode,jdbcType=VARCHAR}
+            </if>
+            <if test="centerType != null">
+                and center_type = #{centerType}
+            </if>
+            <if test="referDistributionGoodsId != null">
+                and refer_distribution_goods_id = #{referDistributionGoodsId}
+            </if>
+            <if test="referBranchId != null">
+                and refer_branch_id = #{referBranchId,jdbcType=BIGINT}
+            </if>
+            <if test="status != null">
+                and status = #{status,jdbcType=INTEGER}
+            </if>
+            <if test="goodsId != null">
+                and goods_id = #{goodsId,jdbcType=BIGINT}
+            </if>
+            <if test="goodsType != null">
+                and goods_type = #{goodsType,jdbcType=INTEGER}
+            </if>
+            <if test="channelRate != null">
+                and channel_rate = #{channelRate,jdbcType=DECIMAL}
+            </if>
+            <if test="paidAmount != null">
+                and paid_amount = #{paidAmount,jdbcType=INTEGER}
+            </if>
+            <if test="paidTotalMoney != null">
+                and paid_total_money = #{paidTotalMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="branchId != null">
+                and branch_id = #{branchId,jdbcType=BIGINT}
+            </if>
+            <if test="saasId != null">
+                and saas_id = #{saasId,jdbcType=BIGINT}
+            </if>
+        </where>
+      </select>
+
+    <select id="selectToDealList"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from o_distribution_goods
+        where is_del = 0 and relate_goods_id &lt; 0
+        order by id asc
+        limit ${num}
+    </select>
+</mapper>

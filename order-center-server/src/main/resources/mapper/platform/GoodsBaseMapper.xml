@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yiwu.order_center_server.dao.PlatformGoodsDao">
+  <update id="updateById" parameterType="com.yiwu.order_center_server.platform.domain.Goods">
+    update o_goods
+    <set>
+      <if test="type != null">
+        type = #{type},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="categoryCode != null">
+        category_code = #{categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null">
+        goods_type = #{goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="picUrl != null">
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="referId != null">
+        refer_id = #{referId,jdbcType=BIGINT},
+      </if>
+
+      <if test="basePrice != null">
+        base_price = #{basePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="salePrice != null">
+        sale_price = #{salePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="tryWatch != null">
+        try_watch = #{tryWatch,jdbcType=INTEGER},
+      </if>
+      <if test="isFree != null">
+        is_free = #{isFree,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="onTime != null">
+        on_time = #{onTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="offTime != null">
+        off_time = #{offTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visibleRange != null">
+        visible_range = #{visibleRange,jdbcType=INTEGER},
+      </if>
+      <if test="openTag != null">
+        open_tag = #{openTag,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="branchId != null">
+        branch_id = #{branchId,jdbcType=BIGINT},
+      </if>
+      <if test="saasId != null">
+        saas_id = #{saasId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yiwu.order_center_server.platform.domain.Goods" useGeneratedKeys="true">
+    insert into o_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+
+      <if test="type != null">
+        type,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="categoryCode != null">
+        category_code,
+      </if>
+      <if test="goodsType != null">
+        goods_type,
+      </if>
+      <if test="picUrl != null">
+        pic_url,
+      </if>
+      <if test="referId != null">
+        refer_id,
+      </if>
+      <if test="basePrice != null">
+        base_price,
+      </if>
+      <if test="salePrice != null">
+        sale_price,
+      </if>
+      <if test="tryWatch != null">
+        try_watch,
+      </if>
+      <if test="isFree != null">
+        is_free,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="onTime != null">
+        on_time,
+      </if>
+      <if test="offTime != null">
+        off_time,
+      </if>
+      <if test="visibleRange != null">
+        visible_range,
+      </if>
+      <if test="openTag != null">
+        open_tag,
+      </if>
+      <if test="sort != null">
+        sort ,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+      <if test="branchId != null">
+        branch_id,
+      </if>
+      <if test="saasId != null">
+        saas_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+        <if test="type != null">
+          #{type},
+        </if>
+
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="categoryCode != null">
+        #{categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null">
+        #{goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="picUrl != null">
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="referId != null">
+        #{referId,jdbcType=BIGINT},
+      </if>
+      <if test="basePrice != null">
+        #{basePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="salePrice != null">
+        #{salePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="tryWatch != null">
+        #{tryWatch,jdbcType=INTEGER},
+      </if>
+      <if test="isFree != null">
+        #{isFree,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="onTime != null">
+        #{onTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="offTime != null">
+        #{offTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visibleRange != null">
+        #{visibleRange,jdbcType=INTEGER},
+      </if>
+      <if test="openTag != null">
+        #{openTag,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="branchId != null">
+        #{branchId,jdbcType=BIGINT},
+      </if>
+      <if test="saasId != null">
+        #{saasId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yiwu.order_center_server.dao.PlatformGoodsDao">
+    <resultMap id="BaseResultMap" type="com.yiwu.order_center_server.platform.domain.Goods">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="type" property="type"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="category_id" jdbcType="BIGINT" property="categoryId"/>
+        <result column="category_code" jdbcType="VARCHAR" property="categoryCode"/>
+        <result column="goods_type" jdbcType="INTEGER" property="goodsType"/>
+        <result column="pic_url" jdbcType="VARCHAR" property="picUrl"/>
+        <result column="refer_id" jdbcType="BIGINT" property="referId"/>
+        <result column="base_price" jdbcType="DECIMAL" property="basePrice"/>
+        <result column="sale_price" jdbcType="DECIMAL" property="salePrice"/>
+        <result column="try_watch" jdbcType="INTEGER" property="tryWatch"/>
+        <result column="is_free" jdbcType="INTEGER" property="isFree"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="on_time" jdbcType="TIMESTAMP" property="onTime"/>
+        <result column="off_time" jdbcType="TIMESTAMP" property="offTime"/>
+        <result column="visible_range" jdbcType="INTEGER" property="visibleRange"/>
+        <result column="open_tag" jdbcType="INTEGER" property="openTag"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="is_del" jdbcType="INTEGER" property="isDel"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="create_user_id" jdbcType="BIGINT" property="createUserId"/>
+        <result column="update_user_id" jdbcType="BIGINT" property="updateUserId"/>
+        <result column="branch_id" jdbcType="BIGINT" property="branchId"/>
+        <result column="saas_id" jdbcType="BIGINT" property="saasId"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+    id, type, name, category_id, category_code, goods_type, pic_url, refer_id, base_price,
+    sale_price, try_watch, is_free, status, on_time, off_time, visible_range, open_tag, sort, is_del,
+    create_time, update_time, create_user_id, update_user_id, branch_id, saas_id
+  </sql>
+
+
+
+    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from o_goods
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="findByObject" parameterType="com.yiwu.order_center_server.platform.domain.Goods" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from o_goods
+        <where>
+            is_del = 0
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="name != null">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="goodsType != null">
+                and goods_type = #{goodsType}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="isFree != null">
+                and is_free = #{isFree}
+            </if>
+            <if test="referId != null">
+                and refer_id = #{referId}
+            </if>
+            <if test="branchId != null">
+                and branch_id = #{branchId}
+            </if>
+            <if test="saasId != null">
+                and saas_id = #{saasId}
+            </if>
+            <if test="openTag != null">
+                and open_tag = #{openTag}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+        </where>
+        order by update_time desc
+    </select>
+</mapper>

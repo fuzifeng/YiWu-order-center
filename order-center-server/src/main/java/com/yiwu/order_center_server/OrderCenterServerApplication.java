@@ -20,7 +20,7 @@ import javax.annotation.PreDestroy;
  */
 @SpringBootApplication
 @EnableSwagger2
-@MapperScan("com.yiwu.order_center_server.dao")
+@MapperScan({"com.yiwu.order_center_server.dao"})
 public class OrderCenterServerApplication {
 
     public static void main(String[] args) {
@@ -29,13 +29,18 @@ public class OrderCenterServerApplication {
 
     @PostConstruct
     public void initEs() {
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:9200/_all/_settings";
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.valueOf(MediaType.APPLICATION_JSON_UTF8_VALUE));
-        String json = "{\"index.blocks.read_only_allow_delete\":null}";
-        HttpEntity entity = new HttpEntity(json, httpHeaders);
-        restTemplate.put(url, entity);
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            String url = "http://localhost:9200/_all/_settings";
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setContentType(MediaType.valueOf(MediaType.APPLICATION_JSON_UTF8_VALUE));
+            String json = "{\"index.blocks.read_only_allow_delete\":null}";
+            HttpEntity entity = new HttpEntity(json, httpHeaders);
+            restTemplate.put(url, entity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 

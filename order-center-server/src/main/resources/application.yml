@@ -12,7 +12,8 @@ spring:
       db-type: com.alibaba.druid.pool.DruidDataSource
     master:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/order-center?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+#      url: jdbc:mysql://localhost:3306/order-center?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+      url: jdbc:mysql://localhost:3306/saas?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
       username: root
       password:
       # 连接池配置：大小，最小，最大
@@ -176,7 +177,7 @@ spring:
 
 
 mybatis:
-  mapper-locations: classpath:mapper/*Mapper.xml
+  mapper-locations: classpath:mapper/*Mapper.xml,mapper/materials/*Mapper.xml,mapper/platform/*Mapper.xml
   type-handlers-package: com.yiwu.order_center_server.common.handler
   configuration:
     map-underscore-to-camel-case: true
