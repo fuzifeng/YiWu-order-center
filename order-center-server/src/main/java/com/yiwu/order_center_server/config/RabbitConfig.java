@@ -37,11 +37,6 @@ public class RabbitConfig {
         return new CustomExchange(DELAY_EXCHANGE, "x-delayed-message", true, false, maps);
     }
 
-    @Bean("esQueue")
-    public Queue esQueue() {
-        return new Queue(ES_QUEUE, true);
-    }
-
     @Bean
     public Queue queue() {
         return new Queue(DELAY_QUEUE_NAME, true);

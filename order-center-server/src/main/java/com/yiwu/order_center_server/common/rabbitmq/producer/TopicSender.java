@@ -1,5 +1,6 @@
 package com.yiwu.order_center_server.common.rabbitmq.producer;
 
+import com.google.gson.Gson;
 import com.yiwu.order_center_server.common.rabbitmq.dto.EsRabbitmqInfoDto;
 import com.yiwu.order_center_server.config.RabbitConfig;
 import com.yiwu.order_center_server.domain.RawMaterials;
@@ -12,6 +13,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+
+import static com.yiwu.order_center_server.config.TopicRabbitConfig.TOPIC_EXCHANGE;
 
 /**
  * @Author: fuzf
@@ -26,14 +29,14 @@ public class TopicSender {
     public void send1(String str) {
         String context = "hi, i am message 1; order:" + str;
         System.out.println("Sender : " + context);
-        this.rabbitTemplate.convertAndSend("mytopicexchange", "topic.message", context);
+        this.rabbitTemplate.convertAndSend(TOPIC_EXCHANGE, "topic.message", context);
     }
 
 
     public void send2(String str) {
         String context = "hi, i am messages 2; order:" + str;
         System.out.println("Sender : " + context);
-        this.rabbitTemplate.convertAndSend("mytopicexchange", "topic.messages", context);
+        this.rabbitTemplate.convertAndSend(TOPIC_EXCHANGE, "topic.messages", context);
     }
 
     public void sendOrder(String str) {
@@ -54,13 +57,10 @@ public class TopicSender {
 
     @Async
     public void sendRawMaterial(Long id) {
-        String context = "hi, send message - rawMaterials id:" + id;
         EsRabbitmqInfoDto dto = new EsRabbitmqInfoDto();
         dto.setId(id);
         dto.setType(EsRabbitmqInfoDto.TypeEnum.RAW_MATERIAL.getCode());
-
-        this.rabbitTemplate.convertAndSend("mytopicexchange", RabbitConfig.ES_QUEUE, context);
+        this.rabbitTemplate.convertAndSend(TOPIC_EXCHANGE, "topic.es", new Gson().toJson(dto));
     }
-
 
 }

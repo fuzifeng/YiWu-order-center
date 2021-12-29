@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static com.yiwu.order_center_server.config.RabbitConfig.ES_QUEUE;
+
 /**
  * @Author: fuzf
  * @Date: 2020/11/2 16:06
@@ -19,7 +21,8 @@ public class TopicRabbitConfig {
 
     final static String Q_TOPIC_MESSAGE_1 = "q_topic_message_1";
     final static String Q_TOPIC_MESSAGE_2 = "q_topic_message_2";
-    final static String TOPIC_EXCHANGE = "mytopicexchange";
+    final static String Q_ES_MESSAGE = "es_queue";
+    public final static String TOPIC_EXCHANGE = "mytopicexchange";
 
 
 
@@ -31,6 +34,13 @@ public class TopicRabbitConfig {
     @Bean("queueMessage2")
     public Queue queueMessage2() {
         return new Queue(TopicRabbitConfig.Q_TOPIC_MESSAGE_2,true);
+    }
+
+
+
+    @Bean("esQueue")
+    public Queue esQueue() {
+        return new Queue(Q_ES_MESSAGE, true);
     }
 
     /**
@@ -53,4 +63,8 @@ public class TopicRabbitConfig {
         return BindingBuilder.bind(queueMessage).to(exchange).with("topic.#");
     }
 
+    @Bean
+    Binding bindingExchangeEsQueue(@Qualifier("esQueue") Queue queueMessage, TopicExchange exchange) {
+        return BindingBuilder.bind(queueMessage).to(exchange).with("topic.#");
+    }
 }

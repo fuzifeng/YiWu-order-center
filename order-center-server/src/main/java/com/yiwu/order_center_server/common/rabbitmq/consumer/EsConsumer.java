@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.yiwu.order_center_server.common.rabbitmq.dto.EsRabbitmqInfoDto;
 import com.yiwu.order_center_server.config.RabbitConfig;
 import com.yiwu.order_center_server.service.material.RawMaterialService;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,19 +30,20 @@ import java.util.Date;
  * @updatedAt 2021/12/27 11:45
  */
 @Component
+@RabbitListener(queues = RabbitConfig.ES_QUEUE)
 public class EsConsumer {
     @Autowired
     RawMaterialService rawMaterialService;
 
 
-    @RabbitListener(queues = RabbitConfig.ES_QUEUE)
+    @RabbitHandler
     public void receive(String message) {
         System.out.println(new Date());
         System.out.println("EsConsumer info : " + message);
         EsRabbitmqInfoDto dto = new Gson().fromJson(message, EsRabbitmqInfoDto.class);
 
         if (dto.getType().equals(EsRabbitmqInfoDto.TypeEnum.RAW_MATERIAL.getCode())) {
-//            rawMaterialService.saveRawMaterialEs(dto.getId());
+            rawMaterialService.saveRawMaterialEs(dto.getId());
         }
     }
 
