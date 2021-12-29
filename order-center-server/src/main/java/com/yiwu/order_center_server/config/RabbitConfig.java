@@ -19,6 +19,7 @@ import java.util.Map;
 public class RabbitConfig {
 
     private static final String QUEUE_TEST_NAME = "test-queue";
+    public static final String ES_QUEUE = "es_queue";
 
     public static final String DELAY_EXCHANGE = "delay_exchange";
     public static final String DELAY_QUEUE_NAME = "delay_queue_name";
@@ -34,6 +35,11 @@ public class RabbitConfig {
         Map<String, Object> maps = new HashMap<>();
         maps.put("x-delayed-type", "direct");
         return new CustomExchange(DELAY_EXCHANGE, "x-delayed-message", true, false, maps);
+    }
+
+    @Bean("esQueue")
+    public Queue esQueue() {
+        return new Queue(ES_QUEUE, true);
     }
 
     @Bean

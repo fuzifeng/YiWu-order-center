@@ -17,5 +17,8 @@ public interface RawMaterialsDao {
      *
      * @mbg.generated Mon Dec 20 14:50:10 CST 2021
      */
-    int insertSelective(RawMaterials record);
+//    int insertSelective(RawMaterials record);
+
+    RawMaterials selectById(Long id);
+
 }

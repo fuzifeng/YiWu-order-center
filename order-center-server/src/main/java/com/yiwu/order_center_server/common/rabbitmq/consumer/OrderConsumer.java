@@ -43,7 +43,6 @@ public class OrderConsumer {
 
     @RabbitListener(queues = RabbitConfig.DELAY_QUEUE_NAME)
     public void receive(String message) {
-
         System.out.println(new Date());
         System.out.println("delay info : " + message);
     }

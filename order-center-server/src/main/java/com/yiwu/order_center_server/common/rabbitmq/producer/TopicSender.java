@@ -1,11 +1,14 @@
 package com.yiwu.order_center_server.common.rabbitmq.producer;
 
+import com.yiwu.order_center_server.common.rabbitmq.dto.EsRabbitmqInfoDto;
 import com.yiwu.order_center_server.config.RabbitConfig;
+import com.yiwu.order_center_server.domain.RawMaterials;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -33,8 +36,6 @@ public class TopicSender {
         this.rabbitTemplate.convertAndSend("mytopicexchange", "topic.messages", context);
     }
 
-
-
     public void sendOrder(String str) {
         String context = "hi, i am order message; order:" + str;
         System.out.println(new Date());
@@ -50,6 +51,16 @@ public class TopicSender {
 //        this.rabbitTemplate.convertAndSend("order.exchange", "order.#", context);
     }
 
+
+    @Async
+    public void sendRawMaterial(Long id) {
+        String context = "hi, send message - rawMaterials id:" + id;
+        EsRabbitmqInfoDto dto = new EsRabbitmqInfoDto();
+        dto.setId(id);
+        dto.setType(EsRabbitmqInfoDto.TypeEnum.RAW_MATERIAL.getCode());
+
+        this.rabbitTemplate.convertAndSend("mytopicexchange", RabbitConfig.ES_QUEUE, context);
+    }
 
 
 }

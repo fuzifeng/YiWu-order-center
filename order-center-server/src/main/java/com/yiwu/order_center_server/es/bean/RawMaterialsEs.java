@@ -11,45 +11,33 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-/**
- * @Author fuzf
- * @Date 2021/9/26:10:52
- * @Description:
- */
 @Data
-@Document(indexName = "book", createIndex = true)
-public class BookEs {
+@Document(indexName = "raw_materials", createIndex = true)
+public class RawMaterialsEs {
+
     @Id
     @Field(type = FieldType.Long)
     private Long id;
 
-    @Field(type = FieldType.Long)
-    private Long bid;
-
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Keyword)
     private String name;
 
-    @Field(type = FieldType.Text)
-    private String author;
+    @Field(name = "category_id", type = FieldType.Keyword)
+    private Long categoryId;
 
-    @Field(type = FieldType.Text)
-    private String content;
+    @Field(name = "category_code", type = FieldType.Keyword)
+    private String categoryCode;
 
-    @Field(type = FieldType.Double)
-    private Double price;
+    @Field(name = "status", type = FieldType.Integer)
+    private Integer status;
 
-    @Field(type = FieldType.Keyword)
-    private String ucode;
+    @Field(name = "is_del", type = FieldType.Integer)
+    private Integer isDel;
 
-    @Field(name = "publish_time", type = FieldType.Long)
-    private Long publishTime;
-
-    // 指定字段对应ES中的类型是Date，使用自定义的日期格式化，pattern指定格式化
-    // 规则是“日期时间”或“日期”或“时间毫秒”
     @Field(name = "create_time", type = FieldType.Date, format = DateFormat.date_hour_minute_second,
             pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime createTime;     // 文章创建时间
+    private LocalDateTime createTime;
 
     @Field(name = "update_time", type = FieldType.Date, format = DateFormat.date_hour_minute_second,
             pattern = "yyyy-MM-dd HH:mm:ss")
