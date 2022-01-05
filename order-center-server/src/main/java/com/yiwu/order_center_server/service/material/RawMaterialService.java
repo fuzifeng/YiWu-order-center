@@ -44,6 +44,14 @@ public class RawMaterialService {
         return rawMaterials.getId();
     }
 
+    public RawMaterials findById(Long id) {
+        return rawMaterialsDao.selectById(id);
+    }
+
+    public int updateById(RawMaterials rawMaterials) {
+        return rawMaterialsDao.updateById(rawMaterials);
+    }
+
     /**
      * 添加数据到es中
      *

@@ -51,4 +51,20 @@ public class RawMaterialController {
         return Resp.success(aLong);
     }
 
+    @PostMapping("/updateRawMaterial")
+    public Resp<Long> updateRawMaterial(@RequestBody RawMaterialSaveDto save) {
+        RawMaterials rawMaterials = rawMaterialService.findById(save.getId());
+        if (rawMaterials == null) {
+            return Resp.error("id 错误");
+        }
+        rawMaterials.setCategoryCode(save.getCategoryCode());
+        rawMaterials.setCategoryId(save.getCategoryId());
+        rawMaterials.setName(save.getName());
+        rawMaterials.setUpdateTime(new Date());
+        rawMaterialService.updateById(rawMaterials);
+        topicSender.sendRawMaterial(rawMaterials.getId());
+        return Resp.success(rawMaterials.getId());
+
+    }
+
 }

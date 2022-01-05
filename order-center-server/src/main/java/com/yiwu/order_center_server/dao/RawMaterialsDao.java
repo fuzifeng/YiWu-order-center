@@ -21,4 +21,6 @@ public interface RawMaterialsDao {
 
     RawMaterials selectById(Long id);
 
+    int updateById(RawMaterials record);
+
 }

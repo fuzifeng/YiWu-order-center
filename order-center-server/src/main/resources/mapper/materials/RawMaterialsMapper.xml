@@ -37,4 +37,17 @@
   <select id="selectById" resultMap="BaseResultMap">
     select * from raw_materials where id = #{id}
   </select>
+
+  <update id="updateById">
+    update raw_materials
+    set
+    name = #{name},
+    category_id = #{categoryId},
+    category_code = #{categoryCode},
+    status = #{status},
+    is_del = #{isDel},
+    create_time = #{createTime},
+    update_time = #{updateTime}
+    where id = #{id}
+  </update>
 </mapper>
