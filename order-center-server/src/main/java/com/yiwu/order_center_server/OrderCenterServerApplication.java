@@ -9,6 +9,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -21,6 +23,8 @@ import javax.annotation.PreDestroy;
 @SpringBootApplication
 @EnableSwagger2
 @MapperScan("com.yiwu.order_center_server.dao")
+@EnableAsync
+@EnableTransactionManagement
 public class OrderCenterServerApplication {
 
     public static void main(String[] args) {
