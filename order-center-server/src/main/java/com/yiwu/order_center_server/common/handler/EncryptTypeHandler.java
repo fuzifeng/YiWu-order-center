@@ -24,8 +24,8 @@ import java.sql.SQLException;
  * @Date 2022/1/6:17:52
  * @Description:
  */
-@MappedJdbcTypes(JdbcType.VARCHAR)
-@MappedTypes(Encrypt.class)
+@MappedJdbcTypes(value = JdbcType.VARCHAR, includeNullJdbcType = true)
+@MappedTypes(value = Encrypt.class)
 public class EncryptTypeHandler extends BaseTypeHandler<Encrypt> {
 
     private static final byte[] KEYS = "12345678abcdefgh".getBytes(StandardCharsets.UTF_8);

@@ -2,6 +2,7 @@ package com.yiwu.order_center_server.dao;
 
 
 import com.yiwu.order_center_server.common.bean.Encrypt;
+import com.yiwu.order_center_server.dao.dto.AccountRegisterDto;
 import com.yiwu.order_center_server.domain.Account;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,6 +19,10 @@ public interface AccountDao {
                  @Param("account") Encrypt account,
                  @Param("password") Encrypt password);
 
-    Account findByAccount(String account);
+    int register2(@Param("name") String name,
+                 @Param("account") String account,
+                 @Param("password") String password);
+
+    AccountRegisterDto findByAccount(@Param("account") Encrypt account);
 
 }
