@@ -178,6 +178,9 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml,mapper/materials/*Mapper.xml
   type-handlers-package: com.yiwu.order_center_server.common.handler
+  type-aliases-package: com.yiwu.order_center_server.common.bean
+
+
   configuration:
     map-underscore-to-camel-case: true
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

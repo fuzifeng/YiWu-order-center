@@ -41,12 +41,8 @@
         <!--<ignoreColumn column="FRED" />-->
         <!--<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />-->
         <!--</table>-->
-        <table tableName="raw_materials" domainObjectName="RawMaterials"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
-        <table tableName="raw_material_category" domainObjectName="RawMaterialCategory"
+        <table tableName="account" domainObjectName="Account"
+               selectByPrimaryKeyQueryId="true"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

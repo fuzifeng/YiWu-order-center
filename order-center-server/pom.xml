@@ -17,6 +17,8 @@
     <properties>
         <java.version>1.8</java.version>
         <poi.version>3.14</poi.version>
+        <hutool.version>5.4.0</hutool.version>
+
     </properties>
 
     <dependencies>
@@ -243,6 +245,22 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
             <version>4.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-crypto</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-http</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-json</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
     </dependencies>
 
