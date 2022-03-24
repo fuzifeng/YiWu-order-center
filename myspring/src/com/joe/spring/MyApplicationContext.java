@@ -47,6 +47,7 @@ public class MyApplicationContext {
                                 //说明是个bean
                                 System.out.println("className:" + className+" 是个bean");
 
+                                
                             }
                         } catch (ClassNotFoundException e) {
                             e.printStackTrace();
