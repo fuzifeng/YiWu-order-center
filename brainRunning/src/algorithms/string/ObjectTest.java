@@ -25,6 +25,10 @@ public class ObjectTest {
         method(str);
         System.out.println(str);
 
+        String str2 = "sasas;";
+        String[] sss = str2.split(";");
+        int i=0;
+
     }
 
     public static void method(String s) {
