@@ -11,11 +11,11 @@ public class Test {
     public static void main(String[] args) {
 
         MyApplicationContext myApplicationContext = new MyApplicationContext(AppConfig.class);
-        System.out.println(myApplicationContext.getBean("userService"));
 //        System.out.println(myApplicationContext.getBean("userService"));
-//        System.out.println(myApplicationContext.getBean("userService"));
-//        System.out.println(myApplicationContext.getBean("userService"));
-        System.out.println(myApplicationContext.getBean("orderService"));
+        UserService userService = (UserService) myApplicationContext.getBean("userService");
+        userService.test();
+
+//        System.out.println(myApplicationContext.getBean("orderService"));
 
     }
 }

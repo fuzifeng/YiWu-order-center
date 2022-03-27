@@ -3,8 +3,10 @@ package com.joe.spring;
 import java.beans.Introspector;
 import java.io.File;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -21,6 +23,8 @@ public class MyApplicationContext {
 
     private ConcurrentHashMap<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
     private ConcurrentHashMap<String, Object> singletonObjects = new ConcurrentHashMap<>();
+    private ArrayList<BeanPostProcessor> beanPostProcessorArrayList = new ArrayList<>();
+
 
     public MyApplicationContext(Class configClass) {
         this.configClass = configClass;
@@ -37,15 +41,12 @@ public class MyApplicationContext {
 //            System.out.println(resource);
 
             File file = new File(resource.getFile());
-            System.out.println(file);
             if (file.isDirectory()) {
                 File[] files = file.listFiles();
                 Arrays.stream(files).forEach(v->{
                     String fileName = v.getAbsolutePath();
-                    System.out.println(fileName);
                     if (fileName.endsWith(".class")) {
                         String className = fileName.substring(fileName.indexOf("com"), fileName.indexOf(".class"));
-                        System.out.println("className:" + className);
                         className = className.replace("\\", ".");
                         System.out.println("className:" + className);
                         try {
@@ -53,6 +54,12 @@ public class MyApplicationContext {
                             if (clazz.isAnnotationPresent(Component.class)) {
                                 //说明是个bean
                                 System.out.println("className:" + className + " 是个bean");
+
+                                if (BeanPostProcessor.class.isAssignableFrom(clazz)) {
+                                    //判断clazz类是不是由BeanPostProcessor派生出来，是否实现这个接口
+                                    BeanPostProcessor beanPostProcessor = (BeanPostProcessor) clazz.newInstance();
+                                    beanPostProcessorArrayList.add(beanPostProcessor);
+                                }
 
                                 Component component = clazz.getAnnotation(Component.class);
                                 String beanName = component.value();
@@ -76,9 +83,12 @@ public class MyApplicationContext {
                             }
                         } catch (ClassNotFoundException e) {
                             e.printStackTrace();
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        } catch (InstantiationException e) {
+                            e.printStackTrace();
                         }
                     }
-
                 });
             }
         }
@@ -98,6 +108,36 @@ public class MyApplicationContext {
         Class clazz = beanDefinition.getType();
         try {
             Object object = clazz.getConstructor().newInstance();
+            //对类中的autowired注解属性注入值  简单版的依赖注入
+            for (Field f : clazz.getDeclaredFields()) {
+                if (f.isAnnotationPresent(Autowired.class)) {
+                    //使用反射对属性赋值
+                    f.setAccessible(true);  //允许属性赋值
+                    f.set(object, getBean(f.getName()));
+                }
+            }
+
+            //是否实现接口  Aware 回调  还有其他回调 Factory等
+            if (object instanceof BeanNameAware) {
+                ((BeanNameAware) object).setBeanName(beanName);
+            }
+
+            beanPostProcessorArrayList.stream().forEach(v->{
+                v.postProcessBeforeInitialization(beanName, object);
+            });
+
+            //初始化
+            if (object instanceof InitializingBean) {
+                ((InitializingBean) object).afterPropertiesSet();
+            }
+
+            beanPostProcessorArrayList.stream().forEach(v->{
+                v.postProcessAfterInitialization(beanName, object);
+            });
+
+            //初始化后 AOP
+
+
             return object;
         } catch (Exception e) {
             e.printStackTrace();

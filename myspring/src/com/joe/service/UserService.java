@@ -1,7 +1,6 @@
 package com.joe.service;
 
-import com.joe.spring.Component;
-import com.joe.spring.Scope;
+import com.joe.spring.*;
 
 /**
  * @Author: fuzf
@@ -9,6 +8,33 @@ import com.joe.spring.Scope;
  */
 @Component("userService")
 //@Scope("prototype")
-public class UserService {
+public class UserService implements BeanNameAware, InitializingBean {
 
+
+
+    @Autowired
+    private OrderService orderService;
+
+    private String beanName;
+
+    //自定义属性
+    private String appField;
+
+    @Override
+    public void setBeanName(String beanName) {
+        this.beanName = beanName;
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        System.out.println("/////.......初始化方法");
+    }
+
+    public void setAppField() {
+
+    }
+
+    public void test() {
+        System.out.println(orderService);
+    }
 }
