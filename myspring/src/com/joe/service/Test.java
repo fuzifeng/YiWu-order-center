@@ -13,7 +13,7 @@ public class Test {
 
         MyApplicationContext myApplicationContext = new MyApplicationContext(AppConfig.class);
 //        System.out.println(myApplicationContext.getBean("userService"));
-        UserService userService = (UserService) myApplicationContext.getBean("userService");
+        UserInterface userService = (UserInterface) myApplicationContext.getBean("userService");
         userService.test();
 
 //        System.out.println(myApplicationContext.getBean("orderService"));

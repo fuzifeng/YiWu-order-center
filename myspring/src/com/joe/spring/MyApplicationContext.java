@@ -48,12 +48,12 @@ public class MyApplicationContext {
                     if (fileName.endsWith(".class")) {
                         String className = fileName.substring(fileName.indexOf("com"), fileName.indexOf(".class"));
                         className = className.replace("\\", ".");
-                        System.out.println("className:" + className);
+//                        System.out.println("className:" + className);
                         try {
                             Class<?> clazz = classLoader.loadClass(className);
                             if (clazz.isAnnotationPresent(Component.class)) {
                                 //说明是个bean
-                                System.out.println("className:" + className + " 是个bean");
+//                                System.out.println("className:" + className + " 是个bean");
 
                                 if (BeanPostProcessor.class.isAssignableFrom(clazz)) {
                                     //判断clazz类是不是由BeanPostProcessor派生出来，是否实现这个接口
@@ -122,18 +122,22 @@ public class MyApplicationContext {
                 ((BeanNameAware) object).setBeanName(beanName);
             }
 
-            beanPostProcessorArrayList.stream().forEach(v->{
-                v.postProcessBeforeInitialization(beanName, object);
-            });
+            for (BeanPostProcessor v : beanPostProcessorArrayList) {
+                object = v.postProcessBeforeInitialization(beanName, object);
+
+            }
+
 
             //初始化
             if (object instanceof InitializingBean) {
                 ((InitializingBean) object).afterPropertiesSet();
             }
 
-            beanPostProcessorArrayList.stream().forEach(v->{
-                v.postProcessAfterInitialization(beanName, object);
-            });
+
+            for (BeanPostProcessor v : beanPostProcessorArrayList) {
+                object = v.postProcessAfterInitialization(beanName, object);
+
+            }
 
             //初始化后 AOP
 

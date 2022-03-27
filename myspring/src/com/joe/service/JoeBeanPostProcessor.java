@@ -15,11 +15,12 @@ import java.lang.reflect.Proxy;
 public class JoeBeanPostProcessor implements BeanPostProcessor {
 
     @Override
-    public void postProcessBeforeInitialization(String beanName, Object bean) {
+    public Object postProcessBeforeInitialization(String beanName, Object bean) {
         //可以单独处理，比如只处理userService
         if ("userService".equals(beanName)) {
             System.out.println("before");
         }
+        return bean;
     }
 
     @Override
@@ -31,12 +32,14 @@ public class JoeBeanPostProcessor implements BeanPostProcessor {
 
                         @Override
                         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                            return null;
+                            System.out.println("切面 代理");
+
+                            return method.invoke(bean, args);
                         }
 
                     });
             return proxyInstance;
         }
-        return null;
+        return bean;
     }
 }

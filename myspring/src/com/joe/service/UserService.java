@@ -8,7 +8,7 @@ import com.joe.spring.*;
  */
 @Component("userService")
 //@Scope("prototype")
-public class UserService implements BeanNameAware, InitializingBean {
+public class UserService implements BeanNameAware, InitializingBean, UserInterface {
 
 
 
