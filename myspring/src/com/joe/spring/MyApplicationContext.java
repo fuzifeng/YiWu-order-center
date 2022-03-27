@@ -1,10 +1,12 @@
 package com.joe.spring;
 
+import javax.annotation.PostConstruct;
 import java.beans.Introspector;
 import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -116,6 +118,16 @@ public class MyApplicationContext {
                     f.set(object, getBean(f.getName()));
                 }
             }
+
+            /**
+             * springboot 中 如果使用了PostConstruct注解，为什么再启动的时候执行此方法，伪代码如下
+             */
+//            for (Method method : clazz.getClass().getDeclaredMethods()) {
+//                if (method.isAnnotationPresent(PostConstruct.class)) {
+//                    method.invoke(clazz, null);
+//                }
+//            }
+            
 
             //是否实现接口  Aware 回调  还有其他回调 Factory等
             if (object instanceof BeanNameAware) {

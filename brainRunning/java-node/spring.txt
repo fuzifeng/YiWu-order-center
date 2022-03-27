@@ -19,6 +19,10 @@ Spring Bean有没有必要实现Aware接口
         完整对象
         销毁
 
+Bean的声明周期，同上，便于理解：
+UserService.class--> 推断构造方法（多个构造方式会优先无参，没有无参会报错，除非某一个使用Autowired） --> 产生对象 --> 依赖注入 -->初始化前（PostConstruct）
+-->初始化（afterPropertiesSet） --> 初始化后（APO） -->代理对象 ??? --> 放入Map单例池 --> bean对象
+
 
 循环依赖问题
     默认bean为单例
