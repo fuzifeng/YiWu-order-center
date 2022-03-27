@@ -8,6 +8,7 @@ import com.joe.spring.MyApplicationContext;
  */
 public class Test {
 
+    //https://www.cnblogs.com/bsytz/p/15346827.html 免费试用idea
     public static void main(String[] args) {
 
         MyApplicationContext myApplicationContext = new MyApplicationContext(AppConfig.class);
