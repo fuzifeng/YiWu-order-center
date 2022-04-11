@@ -7,9 +7,11 @@ import com.yiwu.order_center_server.config.target.DataSourceSwitcher;
 import com.yiwu.order_center_server.dao.OrderDao;
 import com.yiwu.order_center_server.domain.Order;
 import com.yiwu.order_center_server.dto.OrderDto;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -17,10 +19,22 @@ import java.util.List;
  * @Date: 2020/9/14 11:40
  */
 @Service
-public class OrderService {
+public class OrderService implements InitializingBean {
 
     @Autowired
     private OrderDao orderDao;
+
+    @PostConstruct
+    public void a() {
+        System.out.println("初始化前。。。。");
+//        throw new NullPointerException();
+    }
+
+    //初始化方法
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("afterPropertiesSet。。。。");
+    }
 
     public Long addOrder(Order order) {
         orderDao.insertOrder(order);

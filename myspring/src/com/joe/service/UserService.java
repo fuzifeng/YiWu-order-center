@@ -10,8 +10,6 @@ import com.joe.spring.*;
 //@Scope("prototype")
 public class UserService implements BeanNameAware, InitializingBean, UserInterface {
 
-
-
     @Autowired
     private OrderService orderService;
 
@@ -34,7 +32,16 @@ public class UserService implements BeanNameAware, InitializingBean, UserInterfa
 
     }
 
+    @Override
     public void test() {
-        System.out.println(orderService);
+        System.out.println("------");
+    }
+
+//    @Autowired
+    public UserService(OrderService orderService1) {
+        this.orderService = orderService1;
+    }
+
+    public UserService() {
     }
 }
