@@ -13,6 +13,8 @@ import com.yiwu.order_center_server.domain.redis.OrderCache;
 import com.yiwu.order_center_server.dto.OrderDto;
 import com.yiwu.order_center_server.exception.BusinessException;
 import com.yiwu.order_center_server.service.order.OrderService;
+import com.yiwu.order_center_server.service.order.strategy.IOrderService;
+import com.yiwu.order_center_server.service.order.strategy.handler.OrderServiceImpl;
 import com.yiwu.order_center_server.service.repository.OrderCacheRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,5 +154,15 @@ public class OrderController {
 
         }
         return Resp.error("无效订单号");
+    }
+
+    @Autowired
+    private OrderServiceImpl iOrderService;
+
+    @GetMapping("/api/order")
+    @ResponseBody
+    public String orderSave(String type) {
+        String str = iOrderService.orderHandler(type);
+        return "{\"status\":1,\"msg\":\"保存成功\",\"data\":\"" + str + "\"}";
     }
 }
