@@ -34,13 +34,13 @@ public class OrderCenterServerApplication {
     @PostConstruct
     public void initEs() {
         try {
-            RestTemplate restTemplate = new RestTemplate();
-            String url = "http://localhost:9200/_all/_settings";
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.setContentType(MediaType.valueOf(MediaType.APPLICATION_JSON_UTF8_VALUE));
-            String json = "{\"index.blocks.read_only_allow_delete\":null}";
-            HttpEntity entity = new HttpEntity(json, httpHeaders);
-            restTemplate.put(url, entity);
+//            RestTemplate restTemplate = new RestTemplate();
+//            String url = "http://localhost:9200/_all/_settings";
+//            HttpHeaders httpHeaders = new HttpHeaders();
+//            httpHeaders.setContentType(MediaType.valueOf(MediaType.APPLICATION_JSON_UTF8_VALUE));
+//            String json = "{\"index.blocks.read_only_allow_delete\":null}";
+//            HttpEntity entity = new HttpEntity(json, httpHeaders);
+//            restTemplate.put(url, entity);
         } catch (Exception e) {
             e.printStackTrace();
         }

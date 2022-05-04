@@ -239,3 +239,10 @@ bigdata:
   token: 9546a8471c6850e1ff96d868c33117ee
   host: http://47.94.89.185:7000/wd-data-server-test
   commonDataUrl: /common/getData
+
+yiwu:
+  sms:
+    access-id: 0001
+    access-secret: i_love_lzy
+  weblog:
+    enable: false
