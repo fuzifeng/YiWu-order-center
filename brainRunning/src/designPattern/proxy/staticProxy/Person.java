@@ -9,6 +9,15 @@ public class Person implements GiveInterface{
         this.someThing = someThing;
     }
 
+    public Person() {
+    }
+
+    private Person(String name) {
+        this.name = name;
+        System.out.println(name + " 只有这个名字");
+    }
+
+
     @Override
     public void give() {
         System.out.println(name + "给了一个" + someThing);
