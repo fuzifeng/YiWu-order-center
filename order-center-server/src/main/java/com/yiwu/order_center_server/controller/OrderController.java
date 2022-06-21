@@ -150,8 +150,6 @@ public class OrderController {
             dispatch.setOrderNo(order.getOrderNo());
             dispatch.setAddress("暂无");
             dispatch.setStatus(0);
-
-
         }
         return Resp.error("无效订单号");
     }
