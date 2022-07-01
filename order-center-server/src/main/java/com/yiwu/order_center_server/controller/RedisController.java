@@ -12,6 +12,7 @@ package com.yiwu.order_center_server.controller;/**
 import com.sun.org.apache.xerces.internal.dom.PSVIAttrNSImpl;
 import com.yiwu.order_center_client.common.Resp;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.Redisson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/redis")
 public class RedisController {
+
+    @Autowired
+    private Redisson redisson;
 
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
