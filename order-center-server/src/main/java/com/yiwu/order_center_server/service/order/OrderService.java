@@ -47,6 +47,8 @@ public class OrderService implements InitializingBean {
 
 //    @DataSourceSwitcher(DataSourceEnum.SLAVE)
     public Order findOrderByOrderNo(String orderNo) {
+        Order order = orderDao.selectOrderByOrderNo(orderNo);
+        Order order2 = orderDao.selectOrderByOrderNo(orderNo);
         return orderDao.selectOrderByOrderNo(orderNo);
     }
 

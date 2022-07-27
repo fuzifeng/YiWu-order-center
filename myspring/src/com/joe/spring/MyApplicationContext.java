@@ -34,9 +34,9 @@ public class MyApplicationContext {
         //扫描
         if(configClass.isAnnotationPresent(ComponentScan.class)){
             ComponentScan annotation = (ComponentScan) configClass.getAnnotation(ComponentScan.class);
-            String path = annotation.value(); //扫描路径 com.joe.service，真正扫描的是编译好的class文件
+            String path = annotation.value(); //扫描路径 com.joe.simpleSpring.service，真正扫描的是编译好的class文件
 
-            path = path.replace(".", "/"); //相对路径 com/joe/service
+            path = path.replace(".", "/"); //相对路径 com/joe/simpleSpring.service
 
             ClassLoader classLoader = MyApplicationContext.class.getClassLoader();
             URL resource = classLoader.getResource(path); //资源为service

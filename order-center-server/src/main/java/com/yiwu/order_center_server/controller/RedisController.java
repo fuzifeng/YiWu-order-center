@@ -39,8 +39,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/redis")
 public class RedisController {
 
-    @Autowired
-    private Redisson redisson;
+//    @Autowired
+//    private Redisson redisson;
 
     @Autowired
     RedisTemplate<String, Object> redisTemplate;

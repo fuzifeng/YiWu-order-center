@@ -5,6 +5,8 @@ import com.yiwu.order_center_client.common.Resp;
 import com.yiwu.order_center_server.config.target.LoginLimit;
 import com.yiwu.order_center_server.dao.OrderDao;
 import com.yiwu.order_center_server.domain.Order;
+import com.yiwu.order_center_server.jwt.UserTokenDto;
+import com.yiwu.order_center_server.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,29 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     @Autowired
     OrderDao orderDao;
 
+    private static String admin = "fuzifeng";
+
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("LoginCheckInterceptor preHandle");
+
+        if (request.getRequestURI().contains("login")
+                || request.getRequestURI().contains("swagger")) {
+            return true;
+        }
+
+        String authToken = request.getHeader("authToken");
+        if (Strings.isEmpty(authToken)) {
+            render(response, "登录校验没有,请登录");
+            return false;
+        }
+        UserTokenDto userTokenDto = JwtUtils.parseToken(authToken);
+        if (!userTokenDto.getUsername().equals(admin)) {
+            render(response, "登录校验不通过，不是管理员,请登录");
+            return false;
+        }
+
 
         if (handler instanceof HandlerMethod) {
             HandlerMethod method = (HandlerMethod) handler;

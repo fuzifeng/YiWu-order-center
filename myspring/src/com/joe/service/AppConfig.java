@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
  * @Date: 2022/3/24 22:55
  */
 
-@ComponentScan("com.joe.service")
+@ComponentScan("com.joe.simpleSpring.service")
 public class AppConfig {
 
     @Bean("orderService1")
