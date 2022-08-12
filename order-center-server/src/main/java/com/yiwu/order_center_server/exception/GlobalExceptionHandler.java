@@ -3,6 +3,8 @@ package com.yiwu.order_center_server.exception;
 import com.yiwu.order_center_client.common.Resp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageConversionException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -64,6 +66,21 @@ public class GlobalExceptionHandler {
 
         return Resp.error("DB异常:" + e.getMessage());
     }
+
+  @ExceptionHandler({IllegalStateException.class})
+    public Resp illegalStateException(IllegalStateException e) {
+//        ULogger.error("SQL异常", new Object[]{e});
+        return Resp.error("参数异常:" + e.getMessage());
+    }
+
+    @ExceptionHandler({HttpMessageNotReadableException.class,
+            HttpMessageConversionException.class})
+    public Resp illegalStateException(HttpMessageNotReadableException e) {
+
+//        ULogger.error("SQL异常", new Object[]{e});
+        return Resp.error("参数转化异常:" + e.getMessage());
+    }
+
 
     @ExceptionHandler(Exception.class)
     public Resp customException(Exception e) {

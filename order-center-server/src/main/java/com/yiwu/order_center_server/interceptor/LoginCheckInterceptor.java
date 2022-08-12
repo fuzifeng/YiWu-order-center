@@ -35,16 +35,16 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        String authToken = request.getHeader("authToken");
-        if (Strings.isEmpty(authToken)) {
-            render(response, "登录校验没有,请登录");
-            return false;
-        }
-        UserTokenDto userTokenDto = JwtUtils.parseToken(authToken);
-        if (!userTokenDto.getUsername().equals(admin)) {
-            render(response, "登录校验不通过，不是管理员,请登录");
-            return false;
-        }
+//        String authToken = request.getHeader("authToken");
+//        if (Strings.isEmpty(authToken)) {
+//            render(response, "登录校验没有,请登录");
+//            return false;
+//        }
+//        UserTokenDto userTokenDto = JwtUtils.parseToken(authToken);
+//        if (!userTokenDto.getUsername().equals(admin)) {
+//            render(response, "登录校验不通过，不是管理员,请登录");
+//            return false;
+//        }
 
 
         if (handler instanceof HandlerMethod) {
