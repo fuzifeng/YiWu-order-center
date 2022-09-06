@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
  */
 @SpringBootApplication
 @EnableSwagger2
-@MapperScan("com.yiwu.order_center_server.dao")
+@MapperScan(value = {"com.yiwu.order_center_server.dao","com.yiwu.order_center_server.eduCenter.dao"})
 @EnableAsync
 @EnableTransactionManagement
 public class OrderCenterServerApplication {

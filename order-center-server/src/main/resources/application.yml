@@ -178,7 +178,7 @@ spring:
 
 
 mybatis:
-  mapper-locations: classpath:mapper/*Mapper.xml,mapper/materials/*Mapper.xml
+  mapper-locations: classpath:mapper/*Mapper.xml,mapper/materials/*Mapper.xml,mapper/jilin/*Mapper.xml
   type-handlers-package: com.yiwu.order_center_server.common.handler
   type-aliases-package: com.yiwu.order_center_server.common.bean
   configuration:

@@ -41,7 +41,13 @@
         <!--<ignoreColumn column="FRED" />-->
         <!--<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />-->
         <!--</table>-->
-        <table tableName="account" domainObjectName="Account"
+        <table tableName="u_account" domainObjectName="Account"
+               selectByPrimaryKeyQueryId="true"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        <table tableName="u_teacher" domainObjectName="Teacher"
                selectByPrimaryKeyQueryId="true"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
