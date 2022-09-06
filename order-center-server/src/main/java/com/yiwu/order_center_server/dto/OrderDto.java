@@ -1,7 +1,10 @@
 package com.yiwu.order_center_server.dto;
 
+import com.yiwu.order_center_server.config.dataMask.DataMaskingFunc;
+import com.yiwu.order_center_server.config.target.DataMasking;
 import org.joda.money.Money;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,8 +12,10 @@ import java.util.Date;
  * @Date: 2020/11/3 14:31
  */
 
-public class OrderDto {
+public class OrderDto implements Serializable {
+
     private Long id;
+    //    @DataMasking(maskFunc = DataMaskingFunc.ALL_MASK)
     private String orderNo;
     private Money totalMoney;
     private Date createTime;
