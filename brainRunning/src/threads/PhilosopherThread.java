@@ -49,7 +49,7 @@ public class PhilosopherThread extends Thread {
                 }
                 System.out.println(index + "等待获取right");
                 synchronized (left) {
-                    System.out.println(index + "获取right，开始吃饭");
+                    System.out.println(index + "获取left，开始吃饭");
                 }
             }
         }

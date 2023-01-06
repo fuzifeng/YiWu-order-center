@@ -8,6 +8,9 @@ import java.util.List;
 public class JavaBaseTest {
 
     public static void main(String[] args) {
+
+
+
         String s = "[\"军官\",\"儿童\",\"白痴\"]";
         if (s != null && s.length() > 2) {
         }
