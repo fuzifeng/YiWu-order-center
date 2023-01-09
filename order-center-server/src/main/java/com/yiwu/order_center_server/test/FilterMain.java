@@ -18,19 +18,6 @@ import java.util.StringJoiner;
 
 public class FilterMain {
     public static void main(String[] args) {
-        /*List<String> list = Arrays.asList("156587.3520");
-        StringJoiner stringJoiner = new StringJoiner("|", "", "");
-        list.forEach(v -> {
-            stringJoiner.add(v);
-        });
-        System.out.println(stringJoiner.toString());
-*/
 
-        for (String s : list1) {
-            if (!list2.contains(s)) {
-                System.out.println(s);
-            }
-        }
-*/
     }
 }
