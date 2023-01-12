@@ -8,9 +8,9 @@
     <context id="DB2Tables" targetRuntime="MyBatis3">
         <!--数据库连接地址账号密码-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/order-center?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=GMT%2B8&amp;useSSL=false&amp;allowMultiQueries=true"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/user_center?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=GMT%2B8&amp;useSSL=false&amp;allowMultiQueries=true"
                         userId="root"
-                        password="">
+                        password="admin">
         </jdbcConnection>
 
         <javaTypeResolver >
@@ -41,18 +41,13 @@
         <!--<ignoreColumn column="FRED" />-->
         <!--<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />-->
         <!--</table>-->
-        <table tableName="u_account" domainObjectName="Account"
+        <table tableName="user" domainObjectName="User"
                selectByPrimaryKeyQueryId="true"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>
-        <table tableName="u_teacher" domainObjectName="Teacher"
-               selectByPrimaryKeyQueryId="true"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
+
 
     </context>
 </generatorConfiguration>
