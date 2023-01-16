@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 @EnableAsync
 @EnableTransactionManagement
 @EnableEurekaClient
+//@EnableCircuitBreaker
 public class OrderCenterServerApplication {
 
     public static void main(String[] args) {
